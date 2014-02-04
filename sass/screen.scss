@@ -1,0 +1,38 @@
+@import "blueprint/reset";
+@import "partials/base";
+@import "blueprint";
+@import "blueprint/buttons";
+@import "compass/css3";
+
+body.bp {
+  @include blueprint-typography(true);
+  @include blueprint-utilities;
+  @include blueprint-debug;
+}
+
+form.bp {
+  @include blueprint-form;
+}
+
+body {
+    
+    @include blueprint-typography(true);
+    #container {
+        @include container;
+        margin-top: 2vh;
+        
+        a.btn {
+            @include anchor-button;
+            @include button-colors;
+            @include button-hover-colors;
+            @include button-active-colors;
+            @include border-radius;
+            &.actioncall {
+                font-size: 200%;
+            }
+        }
+    }
+}
+
+
+
