@@ -634,3 +634,9 @@ body #container a.btn:active {
 body #container a.btn.actioncall {
   font-size: 200%;
 }
+/* line 34, ../sass/screen.scss */
+body #container a.g-btn {
+  display: inline-block;
+  margin: 0.7em 0.5em 0.7em 0;
+  vertical-align: middle;
+}
