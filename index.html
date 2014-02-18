@@ -5,20 +5,67 @@
     <meta name="description" content="SendMail is intended for individuals trying automate their email usage we seek to provide a solution for scheduling message sending. Being able to precisely schedule email sending allows users to optimize timing for important messages, to effortlessly send out emails at pre-designated times, and to even send themselves reminders (such as re-sending themselves an email to review at a later time)." />
     <meta name="keywords" content="sendmail,send,mail,4911,email,automation,delayed,sending" />
     <meta name="robots" content="index,follow" />
+    <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>SendMail</title>
     <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
     <link href="/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
     <!--[if IE]>
         <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
     <![endif]-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+  </script>
+  <script type="text/javascript">
+    (function () {
+      var po = document.createElement('script');
+      po.type = 'text/javascript';
+      po.async = true;
+      po.src = 'https://plus.google.com/js/client:plusone.js?onload=start';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(po, s);
+    })();
+  </script>
 </head>
 <body>
     <div id="container">
         <h1>SendMail</h1>
         <p>SendMail is intended for individuals trying automate their email usage we seek to provide a solution for scheduling message sending. Being able to precisely schedule email sending allows users to optimize timing for important messages, to effortlessly send out emails at pre-designated times, and to even send themselves reminders (such as re-sending themselves an email to review at a later time).</p>
-        <a href="#" class="g-btn"><img src="/images/google-signin.png"></img></a>
+        <span id="signinButton">
+            <span class="g-signin"
+                data-callback="signinCallback"
+                data-redirecturi="postmessage"
+                data-accesstype="offline"
+                data-clientid="864350449269-19ud33g4q9e5u4issbftjltothgq01ph.apps.googleusercontent.com"
+                data-cookiepolicy="single_host_origin"
+                data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                data-scope="https://www.googleapis.com/auth/plus.login">
+            </span>
+        </span>
     </div>
-    <a class="github-fork" href="https://github.com/devm33/sendmail"><img src="https://github-camo.global.ssl.fastly.net/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+    <div id="result"></div>
+    <a class="github-fork" href="https://github.com/devm33/sendmail">
+        <img src="https://github-camo.global.ssl.fastly.net/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png">
+    </a>
+    <script type="text/javascript">
+    function signinCallback(authResult) {
+        if (authResult['status']['signed_in']) { // user signed in
+            $('#signinButton').hide();//hide the sign-in button
+            
+            //TODO
+            console.log("authcode: "+authResult['code']);
+            console.log("access_token: "+authResult['access_token']);
+            
+        } else {
+            // Update the app to reflect a signed out user
+            // Possible error values:
+            //   "user_signed_out" - User is signed-out
+            //   "access_denied" - User denied access to your app
+            //   "immediate_failed" - Could not automatically log in the user
+            console.log('Sign-in state: ' + authResult['error']);
+        }
+        
+        console.log(authResult);
+    }
+    </script>
 </body>
 </html>
 

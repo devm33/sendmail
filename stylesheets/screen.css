@@ -80,7 +80,7 @@ body #container {
 }
 /* line 14, ../sass/screen.scss */
 body #container * {
-  margin: 0.5em;
+  margin-bottom: 0.5em;
 }
 /* line 17, ../sass/screen.scss */
 body #container p {
@@ -89,9 +89,8 @@ body #container p {
 /* line 20, ../sass/screen.scss */
 body #container h1 {
   font-size: 2em;
-  margin: 0.6em;
 }
-/* line 25, ../sass/screen.scss */
+/* line 24, ../sass/screen.scss */
 body a.github-fork {
   position: absolute;
   top: 0;

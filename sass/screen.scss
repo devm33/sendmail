@@ -12,14 +12,13 @@ body {
         @extend .stretched;
         @include stretch(2em, 5em, 5em, 5em);
         * {
-            margin: 0.5em;
+            margin-bottom: 0.5em;
         }
         p {
             max-width: 800px;
         }
         h1 {
             font-size: 2em;
-            margin: 0.6em;
         }
     }
     a.github-fork {
