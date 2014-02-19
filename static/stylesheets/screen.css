@@ -1,0 +1,148 @@
+/* line 17, ../../../../.gem/ruby/2.1.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../.gem/ruby/2.1.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../.gem/ruby/2.1.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../.gem/ruby/2.1.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../.gem/ruby/2.1.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../.gem/ruby/2.1.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../.gem/ruby/2.1.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../.gem/ruby/2.1.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../.gem/ruby/2.1.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 6, ../../sass/screen.scss */
+body {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 12pt;
+  line-height: 15pt;
+  -webkit-font-smoothing: antialiased;
+}
+/* line 12, ../../sass/screen.scss */
+body #container {
+  max-width: 500px;
+  margin: 2em auto;
+}
+/* line 17, ../../sass/screen.scss */
+body #container #signinButton {
+  float: right;
+  cursor: pointer;
+  font-family: Roboto,arial,sans-serif;
+  color: #fff;
+  font-size: 13px;
+  line-height: 31px;
+  font-weight: bold;
+  white-space: nowrap;
+  -webkit-border-radius: 3px 3px;
+  -moz-border-radius: 3px / 3px;
+  border-radius: 3px / 3px;
+  padding: 0 20px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 1px 0;
+  -moz-box-shadow: rgba(0, 0, 0, 0.1) 0 1px 0;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 1px 0;
+  background-color: #dd4b39;
+  outline: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+/* line 30, ../../sass/screen.scss */
+body #container #signinButton:hover {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 -2px 0 inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -2px 0 inset;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -2px 0 inset;
+  background-color: #dd4b39;
+}
+/* line 34, ../../sass/screen.scss */
+body #container #signinButton:active {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 0 inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 0 inset;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 0 inset;
+  background-color: #be3e2e;
+}
+/* line 41, ../../sass/screen.scss */
+body #container * {
+  margin-bottom: 0.5em;
+  /* stupid simple spacing */
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+}
+/* line 45, ../../sass/screen.scss */
+body #container p {
+  max-width: 800px;
+}
+/* line 48, ../../sass/screen.scss */
+body #container h1 {
+  font-size: 2em;
+}
+/* line 51, ../../sass/screen.scss */
+body #container #header-icon {
+  width: 32px;
+  height: 32px;
+  background: no-repeat url(/icon.png);
+  margin-right: 0.1em;
+}
+/* line 58, ../../sass/screen.scss */
+body a.github-fork {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+}

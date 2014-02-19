@@ -1,12 +1,14 @@
 @import "compass/reset";
 @import "compass/utilities";
 @import "compass/css3";
+@import "compass/css3/user-interface";
 
 body {
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
     font-weight: 300;
     font-size: 12pt;
     line-height: 15pt;
+    -webkit-font-smoothing: antialiased;
     #container {
         
         max-width: 500px;
@@ -14,16 +16,43 @@ body {
         
         #signinButton {
             float: right;
+            cursor: pointer;
+            font-family: Roboto,arial,sans-serif;
+            color: #fff;
+            font-size: 13px;
+            line-height: 31px;
+            font-weight: bold;
+            white-space: nowrap;
+            @include border-radius(3px, 3px);
+            padding: 0 20px;
+            @include box-shadow(rgba(black, 0.1) 0 1px 0);
+            background-color: #dd4b39;
+            &:hover {
+                @include box-shadow(rgba(black, 0.2) 0 -2px 0 inset);
+                background-color: #dd4b39;
+            }
+            &:active {
+                @include box-shadow(rgba(black, 0.2) 0 2px 0 inset);
+                background-color: #be3e2e;
+            }
+            outline: 0;
+            @include user-select(none);
         }
-        
         * {
-            margin-bottom: 0.5em;
+            margin-bottom: 0.5em; /* stupid simple spacing */
+            @include inline-block;
         }
         p {
             max-width: 800px;
         }
         h1 {
             font-size: 2em;
+        }
+        #header-icon {
+            width: 32px;
+            height: 32px;
+            background: no-repeat url(/icon.png);
+            margin-right: 0.1em;
         }
     }
     a.github-fork {
