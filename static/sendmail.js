@@ -19,3 +19,20 @@ function signinCallback(authResult) {
     
     console.log(authResult);
 }
+
+  /* Executed when the APIs finish loading */
+function render() {
+    var additionalParams = {
+        'callback': signinCallback
+    };
+
+    $('#signinButton').click(function() {
+        gapi.auth.signIn(additionalParams); // Will use page level configuration
+    });
+}
+
+(function() {
+var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
