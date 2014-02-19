@@ -1,5 +1,4 @@
 @import "compass/reset";
-@import "compass/layout/stretching";
 @import "compass/utilities";
 @import "compass/css3";
 
@@ -9,8 +8,14 @@ body {
     font-size: 12pt;
     line-height: 15pt;
     #container {
-        @extend .stretched;
-        @include stretch(2em, 5em, 5em, 5em);
+        
+        max-width: 500px;
+        margin: 2em auto;
+        
+        span#signInButton {
+            float: right;
+        }
+        
         * {
             margin-bottom: 0.5em;
         }
