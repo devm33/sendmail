@@ -139,7 +139,16 @@ body #container #header-icon {
   background: no-repeat url(/icon.png);
   margin-right: 0.1em;
 }
-/* line 58, ../../sass/screen.scss */
+/* line 57, ../../sass/screen.scss */
+body #container img.face-circle {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  padding-right: 5px;
+}
+/* line 62, ../../sass/screen.scss */
 body a.github-fork {
   position: absolute;
   top: 0;

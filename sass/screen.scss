@@ -54,6 +54,10 @@ body {
             background: no-repeat url(/icon.png);
             margin-right: 0.1em;
         }
+        img.face-circle {
+            @include border-radius(50%);
+            padding-right: 5px;
+        }
     }
     a.github-fork {
         position: absolute;

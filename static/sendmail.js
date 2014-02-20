@@ -1,38 +1,20 @@
-
-
-function signinCallback(authResult) {
-    if (authResult['status']['signed_in']) { // user signed in
-        $('#signinButton').hide();//hide the sign-in button
-        
-        //TODO
-        console.log("authcode: "+authResult['code']);
-        console.log("access_token: "+authResult['access_token']);
-        
-    } else {
-        // Update the app to reflect a signed out user
-        // Possible error values:
-        //   "user_signed_out" - User is signed-out
-        //   "access_denied" - User denied access to your app
-        //   "immediate_failed" - Could not automatically log in the user
-        console.log('Sign-in state: ' + authResult['error']);
-    }
-    
-    console.log(authResult);
-}
-
-  /* Executed when the APIs finish loading */
-function render() {
-    var additionalParams = {
-        'callback': signinCallback
+$('#signinButton').click(function(){
+    var config = {
+        'client_id': '864350449269-19ud33g4q9e5u4issbftjltothgq01ph.apps.googleusercontent.com',
+        'scope': 'profile email'
     };
-
-    $('#signinButton').click(function() {
-        gapi.auth.signIn(additionalParams); // Will use page level configuration
+    gapi.auth.authorize(config, function() {
+        console.log('login complete');
+        console.log(gapi.auth.getToken());
+        
+        gapi.client.load('plus', 'v1', function() {
+          var request = gapi.client.plus.people.get({
+            'userId': 'me'
+          });
+          request.execute(function(resp){
+            console.log(resp);
+            $('#container p').html('<img src="'+resp.image.url+'" class="face-circle" />'+'Hi '+resp['name']['givenName']+' thank you for your interest in sendmail.<br>This app is still in development, but will be done in about a month (because it\'s due for a class!). Feel free to come back then. None of your credentials have been saved in the meantime =)');
+          });
+        });
     });
-}
-
-(function() {
-var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-})();
+});
