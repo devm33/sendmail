@@ -1,7 +1,9 @@
 $('#signinButton').click(function(){
     var config = {
         'client_id': '864350449269-19ud33g4q9e5u4issbftjltothgq01ph.apps.googleusercontent.com',
-        'scope': 'profile email'
+        'scope': 'profile email',
+        'response_type': 'code',
+        'access_type': 'offline'
     };
     gapi.auth.authorize(config, function() {
         console.log('login complete');
