@@ -4,7 +4,7 @@
 
 /*** requires */
 var express = require('express');
-
+var request = require('request');
 
 /*** global vars */
 var port = process.env.PORT || 5000; // heroku port || local test port
@@ -22,6 +22,7 @@ var gauth_url = 'https://accounts.google.com/o/oauth2/auth?' +
     'redirect_uri=' + encodeURIComponent(hostroot) + oauth2 + '&' +
     'response_type=code&' +
     'client_id=' + secrets['web']['client_id'] + '&' +
+    'approval_prompt=force&' +
     'access_type=offline';
 
 /*** config */
@@ -52,8 +53,25 @@ app.get('/', function(req, res){
 });
 
 app.get('/'+oauth2, function(req, res){
-    console.log(req);
-    res.json(req.query);  
+    var body = "";
+    if(req.query.code) {
+        body = req.query;
+        console.log(req.query.code);
+        request.post("https://accounts.google.com//o/oauth2/token", {
+            form: {
+                code: req.query.code,
+                client_id: secrets['web']['client_id'],
+                client_secret: secrets['web']['client_secret'],
+                redirect_uri: hostroot+oauth2,
+                grant_type: 'authorization_code'
+            }
+        });
+    }
+    else {
+        console.log(req.query);
+        //TODO
+    }
+    res.send(200, body);
 });
 
 
