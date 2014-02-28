@@ -9,23 +9,65 @@ body {
     font-size: 12pt;
     line-height: 15pt;
     -webkit-font-smoothing: antialiased;
+    div.lightbox {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: #ccc;
+        background-color: rgba(120,120,120,0.5);
+        div.content {
+            display: block;
+            max-width:500px;
+            margin: 20px auto;
+            padding: 5px;
+            background-color: #fff;
+            @include border-radius(10px);
+            img.loading128 {
+                display: block;
+                width: 128px;
+                height: 128px;
+                margin: 0 auto;
+            }
+            p {
+                font-size: 1.5em;
+                font-style: italic;
+                text-align: center;
+            }
+        }
+    }
     #container {
         
         max-width: 500px;
         margin: 2em auto;
         
-        #signinButton {
-            float: right;
+        .btn {
             cursor: pointer;
-            font-family: Roboto,arial,sans-serif;
-            color: #fff;
-            font-size: 13px;
+            @include user-select(none);
+            outline: 0;
+            @include border-radius(3px, 3px);
+            padding: 0 20px;
             line-height: 31px;
             font-weight: bold;
             white-space: nowrap;
-            @include border-radius(3px, 3px);
-            padding: 0 20px;
             @include box-shadow(rgba(black, 0.1) 0 1px 0);
+            background-color: #394bdd;
+            &:hover {
+                @include box-shadow(rgba(black, 0.2) 0 -2px 0 inset);
+                background-color: #394bdd;
+            }
+            &:active {
+                @include box-shadow(rgba(black, 0.2) 0 2px 0 inset);
+                background-color: #2e3ebe;
+            }
+            font-family: Roboto,arial,sans-serif;
+            font-size: 13px;
+            color: #fff;
+            @include inline-block;
+        }
+        
+        #signinButton {
             background-color: #dd4b39;
             &:hover {
                 @include box-shadow(rgba(black, 0.2) 0 -2px 0 inset);
@@ -35,23 +77,19 @@ body {
                 @include box-shadow(rgba(black, 0.2) 0 2px 0 inset);
                 background-color: #be3e2e;
             }
-            outline: 0;
-            @include user-select(none);
         }
-        * {
+        p,h1,#header-icon {
             margin-bottom: 0.5em; /* stupid simple spacing */
             @include inline-block;
         }
-        p {
-            max-width: 800px;
-        }
         h1 {
             font-size: 2em;
+            line-spacing: center;
         }
         #header-icon {
-            width: 32px;
-            height: 32px;
-            background: no-repeat url(/icon.png);
+            width: 64px;
+            height: 64px;
+            background: no-repeat url(/sendmail-64.png);
             margin-right: 0.1em;
         }
         img.face-circle {
@@ -65,7 +103,20 @@ body {
         right: 0;
         border: 0;
     }
+    #error-bar {
+        width: 100%;
+        font-weight: bold;
+        background-color: #c30;
+    }
 }
 
+/* util type things */
+.right {
+    float: right;
+}
+.clear {
+    float: none;
+    clear: both;
+}
 
 

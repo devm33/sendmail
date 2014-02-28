@@ -1,14 +1,19 @@
 <% include head %>
 
+<% if (err) { %>
+<div id="error-bar"><%= err %></div>
+<% } %>
+
 <div id="container">
     <div id="header-icon"></div>
     <h1>SendMail</h1>
     <p>SendMail is intended for individuals trying automate their email usage we seek to provide a solution for scheduling message sending. Being able to precisely schedule email sending allows users to optimize timing for important messages, to effortlessly send out emails at pre-designated times, and to even send themselves reminders (such as re-sending themselves an email to review at a later time).</p>
-    <a id="signinButton" title="Sign in with Google" role="button" tabindex="0"
+    <a id="signinButton" class="btn right" title="Sign in with Google" role="button" tabindex="0"
     href="<%= gauth_url %>">
     Sign in with Google</a>
 </div>
 <div id="result"></div>
 <a class="github-fork" href="https://github.com/devm33/sendmail"><img src="https://github-camo.global.ssl.fastly.net/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
 
+<% loadJS = false; %>
 <% include foot %>

@@ -1,0 +1,20 @@
+<% include head %>
+
+<% if (loading) { %>
+    <div class="lightbox"><div class="content">
+        <img class="loading128" src="/sendmail-loading-128-opt.gif" alt="loading" />
+        <p>Loading...</p>
+    </div></div>
+<% }
+// TODO make the above img tag an overlay
+// and stub out page here for division of concerns
+%>
+    
+<div id="container">
+    <div id="header-icon"></div>
+    <h1>SendMail</h1>
+    <p></p>
+</div>
+
+<% loadJS = true; %>
+<% include foot %>
