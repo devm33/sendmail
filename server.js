@@ -86,6 +86,11 @@ app.get('/profile', function(req, res){
     }
 });
 
+app.get('/logout', function(req, res){
+    req.session.destroy();
+    res.send(200, 'You have been logged out.');
+});
+
 app.get('/'+oauth2, function(req, res){
     if(req.query.code) {
         /* We have the code, now we request the token */
