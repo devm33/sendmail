@@ -38,7 +38,7 @@ Dependencies
 - node.js
   - express
   - ejs
-  - googleapis
+  - request
 - compass
 
 
