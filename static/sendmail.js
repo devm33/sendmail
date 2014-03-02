@@ -6,7 +6,7 @@ var loadProfile = function(){
         dataType: 'json',
         success: function(profile) {
             $('div.lightbox').remove();
-            $('#container p').html('Hi '+profile.name.givenName+' thank you for your interest in sendmail.<br>This app is still in development, but will be done in about a month (because it\'s due for a class!). Feel free to come back then. None of your credentials have been saved in the meantime =)<br>');
+            $('#container p').html('Hi '+profile.name.givenName+', (test) thank you for your interest in sendmail.<br>This app is still in development, but will be done in about a month (because it\'s due for a class!). Feel free to come back then. None of your credentials have been saved in the meantime =)<br>');
             $('#container').append('<img src="'+profile.image.url.replace(/(\d)*$/,'100')+'" class="face-circle" />');
             $('#container').append('<div id="logout" class="btn right">Click here to logout</div>');
             
