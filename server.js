@@ -53,7 +53,7 @@ app.configure(function(){
 /*** endpoints */
 app.get('/', function(req, res){
     var template = 'landing';
-    var opts = {'gauth_url': gauth_url, 'err': false};
+    var opts = {'gauth_url': gauth_url};
     if (req.session.name) {
         if (req.session.error) {
             opts.err = "There was an error logging in";
