@@ -2,6 +2,6 @@
 
 # Script to stop the local build and serve process
 
-killall -s SIGINT node
-killall -s SIGINT compass
+killall node
+killall compass
 
