@@ -1,5 +1,23 @@
-/* First thing is first need to call back to the sever to get the name and 
-picture url */
+(function($){ /* start clean scope */
+var self = {};
+
+self.profile_wait_max = 5; /* max number of 409's to ignore */
+
+var logOut = function(){
+    $.ajax({
+        url: '/logout',
+        success: function(){
+            window.location.href = '/';
+        },
+        error: function(){
+            var err = $('<div id="error-bar">');
+            err.html(xhr.status+': There was an error logging you out.'+
+            'Please refresh to try again / see if it worked anyways. Sorry!');
+            $('body').prepend(err);
+        }
+    });
+};
+
 var loadProfile = function(){
     $.ajax({
         url: '/profile',
@@ -13,17 +31,21 @@ var loadProfile = function(){
             $('#from').val(profile.emails[0].value).attr('readonly', true);
         },
         error: function(xhr, status, error) {
-            if (xhr.status === 409) { /* content just isnt ready yet */
-                setTimeout(function(){ loadProfile(); }, 500);
+            if (xhr.status === 409 && (self.profile_wait_count || 0) < self.profile_wait_max) {
+                /* content just isnt ready yet, but never do anything infinitely */
+                self.profile_wait_count = 1 + (self.profile_wait_count || 0);
+                setTimeout(loadProfile, 500);
             } else {
                 var err = $('<div id="error-bar">');
-                err.html(xhr.status+': There was an error fetching your profile.'+
-                'Please refresh to try again. Sorry!');
+                err.html(': There was an error fetching your profile.'+
+                'You will be logged out in a sec. Sorry! ('+error+')');
                 $('body').prepend(err);
+                setTimeout(logOut, 1000);
             }
         }
     });
 };
+
 var showErrorBar = function(msg, wait) {
     var bar = $('#error-bar');
     if(bar.length == 0) {
@@ -37,26 +59,14 @@ var showErrorBar = function(msg, wait) {
     bar.prependTo('body');
     return bar;
 };
+
 var showSuccessBar = function(msg, wait) {
     showErrorBar(msg, wait).addClass('success');
 };
 
 $(document).ready(function(){
     /* Bind listeners here */
-    $('#container').on('click', '#logout', function(){
-        $.ajax({
-            url: '/logout',
-            success: function(){
-                window.location.href = '/';
-            },
-            error: function(){
-                var err = $('<div id="error-bar">');
-                err.html(xhr.status+': There was an error logging you out.'+
-                'Please refresh to try again / see if it worked anyways. Sorry!');
-                $('body').prepend(err);
-            }
-        });
-    });
+    $('#container').on('click', '#logout', logOut);
     $('#container').on('submit', '#compose', function(event){
         $.ajax({
             url: '/schedule',
@@ -74,8 +84,8 @@ $(document).ready(function(){
         event.preventDefault(); //stop default form submit
     });
 
-
     /* Callback for profile data, will pull until it gets it */
     loadProfile();
 });
 
+/* end clean scope */ })(jQuery);
