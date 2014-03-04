@@ -36,11 +36,12 @@ app.configure(function(){
     app.set('view engine', 'ejs');
     app.set('views', __dirname + '/views');
 
+    // enable gzipping
+    app.use(express.compress());
+
     // serve files out of static dir
     app.use(express.static(__dirname + '/static', {maxAge: 31557600000}));
 
-    // enable gzipping
-    app.use(express.compress());
 
     // cookie processing for session
     app.use(express.cookieParser(cookie_secret));
@@ -52,7 +53,7 @@ app.configure(function(){
 /*** endpoints */
 app.get('/', function(req, res){
     var template = 'landing';
-    var opts = {'gauth_url': gauth_url, 'err': false};
+    var opts = {'gauth_url': gauth_url};
     if (req.session.name) {
         if (req.session.error) {
             opts.err = "There was an error logging in";
