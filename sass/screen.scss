@@ -46,9 +46,11 @@ body {
             cursor: pointer;
             @include user-select(none);
             outline: 0;
+            border: 0;
             @include border-radius(3px, 3px);
             padding: 0 20px;
             line-height: 31px;
+            height: 31px;
             font-weight: bold;
             white-space: nowrap;
             @include box-shadow(rgba(black, 0.1) 0 1px 0);
@@ -78,23 +80,31 @@ body {
                 background-color: #be3e2e;
             }
         }
-        p,h1,#header-icon {
+        p {
             margin-bottom: 0.5em; /* stupid simple spacing */
             @include inline-block;
         }
         h1 {
             font-size: 2em;
-            line-spacing: center;
         }
         #header-icon {
             width: 64px;
             height: 64px;
             background: no-repeat url(/sendmail-64.png);
-            margin-right: 0.1em;
         }
         img.face-circle {
             @include border-radius(50%);
-            padding-right: 5px;
+            margin-right: 0.5em;
+        }
+        #header-bar {
+            overflow: auto;
+            .right *, .left *, .wrap {
+                display:inline-block;
+                vertical-align: middle;
+            }
+            .wrap {
+                width: 49%; /* because css :P */
+            }
         }
     }
     a.github-fork {
@@ -107,10 +117,30 @@ body {
         width: 100%;
         font-weight: bold;
         background-color: #c30;
+        &.success {
+            background-color: #3c0;
+        }
+    }
+    #compose {
+        input, textarea {
+            display: block;
+            margin-bottom: 1em;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+        }
+        label {
+            float: left;
+            margin-right: 0.5em;
+        }
     }
 }
 
 /* util type things */
+.left {
+    float: left;
+}
 .right {
     float: right;
 }
