@@ -12,6 +12,7 @@ lib-cov
 pids
 logs
 results
+rdb
 
 npm-debug.log
 node_modules
