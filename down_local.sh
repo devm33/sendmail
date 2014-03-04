@@ -4,4 +4,5 @@
 
 killall -s SIGINT node
 killall -s SIGINT compass
+redis-cli shutdown
 
