@@ -11,7 +11,8 @@
     "request": "2.x",
     "ejs": "0.x",
     "redis": "0.x",
-    "connect-redis": "1.x"
+    "connect-redis": "1.x",
+    "nodemailer": "x"
   },
   "repository": {
     "type": "git",
