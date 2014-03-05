@@ -29,6 +29,7 @@ var loadProfile = function(){
             $('#from').val(profile.emails[0].value).attr('readonly', true);
         },
         error: function(xhr, status, error) {
+            $('div.lightbox').remove();
             if (xhr.status === 409 && profile_wait_count < profile_wait_max) {
                 /* content just isnt ready yet, but never do anything infinitely */
                 profile_wait_count += 1;
@@ -43,7 +44,7 @@ var loadProfile = function(){
 };
 
 var submitEmailForm = function(event){
-    console.log($('#compose').serialize());
+    var box = showLoadBox();
     $.ajax({
         url: '/schedule',
         type: 'POST',
@@ -56,6 +57,9 @@ var submitEmailForm = function(event){
         error: function(xhr, status, code) {
             showErrorBar('There was an error scheduling your email: '+
                 (xhr.responseText || code));
+        },
+        complete: function() {
+            box.remove();
         }
     });
     event.preventDefault(); /*stop default form submit, should be blank,
@@ -78,6 +82,15 @@ var showErrorBar = function(msg, wait) {
 
 var showSuccessBar = function(msg, wait) {
     showErrorBar(msg, wait).addClass('success');
+};
+
+var showLoadBox = function(msg) {
+    var box = $('<div class="lightbox"><div class="content">'+
+        '<img class="loading128" src="/sendmail-loading-128-opt.gif" alt="loading" />'+
+        '<p>'+(msg || 'Loading...')+'</p>'+
+    '</div></div>');
+    box.appendTo('body');
+    return box;
 };
 
 $(document).ready(function(){
