@@ -8,11 +8,11 @@ lib-cov
 *.out
 *.pid
 *.gz
+*.rdb
 
 pids
 logs
 results
-rdb
 
 npm-debug.log
 node_modules
