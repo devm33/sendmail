@@ -45,6 +45,10 @@ app.use(express.compress());
 // serve files out of static dir
 app.use(express.static(__dirname + '/static', {maxAge: 31557600000}));
 
+// middleware for post data processing
+app.use(express.json());
+app.use(express.urlencoded()); 
+
 // cookie processing for session
 app.use(express.cookieParser(secrets.cookie_pass || 'dumb pass'));
 
@@ -70,6 +74,10 @@ app.get('/', function(req, res){
 app.get('/profile', user.profile);
 app.get('/logout', auth.logout);
 app.get(auth.authroute, auth.authorize);
+app.post('/schedule', mail.schedule); /* TODO in terms of our api,
+* should we accept all here (http://expressjs.com/3x/api.html#app.all)
+* or would it just obfuscate things? thoughts?
+*/
 
 /*** Add error handlers */
 require('./lib/error.js')(app);
