@@ -12,10 +12,12 @@ Assuming you have clone/forked the repo and have
 [installed](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager) already run this in the gitdir to install the project dependencies:
 
     $ npm install -d
-    
-Then you just need [compass](http://compass-style.org/) (a CSS pre-processor built on top of [sass](http://sass-lang.com/)), [install here](http://compass-style.org/install/)
 
-Once you've got both node and compass you can run the local testing scripts
+The data for this app is housed in redis which you can find info about [here](http://redis.io/download).
+    
+If you want to make styles changes you need [compass](http://compass-style.org/) (a CSS pre-processor built on top of [sass](http://sass-lang.com/)), [install here](http://compass-style.org/install/)
+
+Once you've got the dependencies you can run the local testing scripts
     
     $ ./up_local.sh
     $ ./down_local.sh
@@ -35,10 +37,17 @@ Thanks!
 
 Dependencies
 ------------
-- node.js
+- node.js with these modules:
   - express
   - ejs
   - request
+  - redis
+  - connect-redis
+  - nodemailer
+- redis database
+ - redis-server
+ - redis-cli
+ - just a basic install, nothing fancy needed for local testing
 - compass
 
 

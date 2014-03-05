@@ -2,58 +2,65 @@
  Main server file for sendmail app
 */
 
-/*** requires */
-var express = require('express');
-var request = require('request');
-var utility = require('./utility.js'); /* some utility functions */
-
-/*** global vars */
+/*** Application settings */
 var port = process.env.PORT || 5000; // heroku port || local test port
 var testing = (port == 5000); // the port tells us if we're testing
-var oauth2 = 'oauth2callback'; // route for oauth2 redirect
-var hostroot = 'https://sendmail4911.herokuapp.com/';
+var host = 'https://sendmail4911.herokuapp.com';
 if(testing) {
-    hostroot = 'http://localhost:5000/';
+    host = 'http://localhost:5000';
 }
-var secrets = require('./secrets.json');
-var cookie_secret = secrets.cookie_pass || 'dumb pass';
-var gauth_url = 'https://accounts.google.com/o/oauth2/auth?' +
-    'scope=email%20profile&' +
-    'state=%2Fprofile&' +
-    'redirect_uri=' + encodeURIComponent(hostroot) + oauth2 + '&' +
-    'response_type=code&' +
-    'client_id=' + secrets.web.client_id + '&' +
-    'approval_prompt=force&' +
-    'access_type=offline';
 
-/*** config */
+/*** Required modules */
+var express = require('express');
+var request = require('request');
+var RedisStore = require('connect-redis')(express);
+var secrets = require('./secrets.json');   /* keys, codes, etc. */
+var auth    = require('./lib/auth.js')(host);/* lib for auth routes */
+var user    = require('./lib/user.js');    /* user routes, api calls */
+var mail    = require('./lib/mail.js');    /* mail handling methods */
+var error   = require('./lib/error.js');   /* error handling methods */
+
+/*** Establish database connection */
+var rtg, redis, redis_opts;
+if (process.env.REDISTOGO_URL) {
+    rtg   = require("url").parse(process.env.REDISTOGO_URL);
+    redis = require("redis").createClient(rtg.port, rtg.hostname);
+    redis.client.auth(rtg.auth.split(":")[1]);
+} else {
+    redis = require("redis").createClient();
+}
+
+/*** Configure express application */
 var app = express();
-app.configure(function(){
-    // turn on default logging
-    app.use(express.logger());
+// turn on default logging
+app.use(express.logger());
 
-    // use ejs for templates
-    app.set('view engine', 'ejs');
-    app.set('views', __dirname + '/views');
+// use ejs for templates
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
 
-    // enable gzipping
-    app.use(express.compress());
+// enable gzipping
+app.use(express.compress());
 
-    // serve files out of static dir
-    app.use(express.static(__dirname + '/static', {maxAge: 31557600000}));
+// serve files out of static dir
+app.use(express.static(__dirname + '/static', {maxAge: 31557600000}));
 
+// middleware for post data processing
+app.use(express.json());
+app.use(express.urlencoded()); 
 
-    // cookie processing for session
-    app.use(express.cookieParser(cookie_secret));
+// cookie processing for session
+app.use(express.cookieParser(secrets.cookie_pass || 'dumb pass'));
 
-    // use express's session handling for most of user management
-    app.use(express.session());
-});
+// use express's session handling for most of user management
+app.use(express.session({
+    store: new RedisStore({client: redis})
+}));
 
-/*** endpoints */
+/*** Endpoints */
 app.get('/', function(req, res){
     var template = 'landing';
-    var opts = {'gauth_url': gauth_url};
+    var opts = {'gauth_url': auth.gauth_url};
     if (req.session.name) {
         if (req.session.error) {
             opts.err = "There was an error logging in";
@@ -64,91 +71,18 @@ app.get('/', function(req, res){
     }
     res.render(template, opts);
 });
+app.get('/profile', user.profile);
+app.get('/logout', auth.logout);
+app.get(auth.authroute, auth.authorize);
+app.post('/schedule', mail.schedule); /* TODO in terms of our api,
+* should we accept all here (http://expressjs.com/3x/api.html#app.all)
+* or would it just obfuscate things? thoughts?
+*/
 
-app.get('/profile', function(req, res){
-    // If authenticated returns a json object with some profile data
-    var auth = req.session; //too long
-    if(!auth.name) {
-        res.send(403, 'Not authorized');
-    } else if(!auth.id_token) {
-        res.send(409, {'status':'not_ready'});
-    } else {   
-        request({
-            url: 'https://www.googleapis.com/plus/v1/people/me',
-            headers: {
-                'Authorization': (auth.token_type+' '+auth.access_token)
-            }
-        }, function(err, response, body) {
-            if(err) {
-                res.status(401);
-            }
-            res.send(body);
-        });
-    }
-});
+/*** Add error handlers */
+require('./lib/error.js')(app);
 
-app.get('/logout', function(req, res){
-    req.session.destroy();
-    res.send(200, 'You have been logged out.');
-});
-
-app.get('/'+oauth2, function(req, res){
-    if(req.query.code) {
-        /* We have the code, now we request the token */
-        request.post({
-            url: 'https://accounts.google.com//o/oauth2/token',
-            json: true,
-            form: {
-                code: req.query.code,
-                client_id: secrets.web.client_id,
-                client_secret: secrets.web.client_secret,
-                redirect_uri: hostroot+oauth2,
-                grant_type: 'authorization_code'
-            }
-        },
-        function(err, response, body) {
-            if(err) {
-                console.error('error' + err + 'on google auth:\n' + body);
-                req.session.error = "There was an error logging in";
-            } else {
-                req.session.access_token = body.access_token;
-                req.session.id_token = body.id_token;
-                req.session.token_type = body.token_type;
-                req.session.refresh_token = body.refresh_token;
-                req.session.error = false;
-                req.session.save();
-            }
-        });
-        /*, while we are waiting for that to come back, go ahead and name this
-         * session and send the main page that will callback for more data */
-        req.session.name = utility.rand_string(10);
-        res.redirect('/');
-    }
-    else {
-        console.error('Unidentified request to '+oauth2+'\n'+req);
-        res.send(400, 'Unidentified Syntax');
-    }
-    /* TODO maybe, if annoying enough, all this auth stuff could be moved to
-     * another file */
-});
-
-/* Simple 404 responder */
-app.use(function(req, res, next){
-    res.status(404);
-    if (req.accepts('json')) {
-        res.send({ error: 'Not found' });
-        return;
-    }
-    res.send('Not found');
-});
-
-/* Error handler */
-app.use(function(err, req, res, next){
-    console.error('500 something is broken: '+err);
-    res.send(500, err);
-});
-
-/*** start server */
+/*** Start server */
 app.listen(port, function() {
     console.log('Listening on ' + port);
 });
