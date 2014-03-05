@@ -37,12 +37,17 @@ Thanks!
 
 Dependencies
 ------------
-- node.js
+- node.js with these modules:
   - express
   - ejs
   - request
   - redis
-- redis
+  - connect-redis
+  - nodemailer
+- redis database
+ - redis-server
+ - redis-cli
+ - just a basic install, nothing fancy needed for local testing
 - compass
 
 
