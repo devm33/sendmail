@@ -5,4 +5,3 @@
 killall -SIGINT node
 killall -SIGINT compass
 redis-cli shutdown
-
