@@ -2,6 +2,6 @@
 
 # Script to stop the local build and serve process
 
-killall node
-killall compass
-
+killall -SIGINT node
+killall -SIGINT compass
+redis-cli shutdown
