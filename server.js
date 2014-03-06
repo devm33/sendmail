@@ -43,7 +43,7 @@ app.set('views', __dirname + '/views');
 app.use(express.compress());
 
 // serve files out of static dir
-app.use(express.static(__dirname + '/static', {maxAge: 31557600000}));
+app.use(express.static(__dirname + '/static', {maxAge: 31536000}));
 
 // middleware for post data processing
 app.use(express.json());
