@@ -44,15 +44,18 @@ var loadProfile = function(){
 };
 
 var submitEmailForm = function(event){
-    var box = showLoadBox();
+    var box = showLoadBox('Sending message...');
     $.ajax({
         url: '/schedule',
         type: 'POST',
         dataType: 'json',
         data: $('#compose').serialize(),
-        success: function(data) {
-            showSuccessBar('E-mail successfully scheduled.', 1);
-            /* TODO clear out form values */
+        success: function(data, status, xhr) {
+            showSuccessBar('E-mail successfully scheduled.', 2);
+            /* TODO sorry could be cleaner code */
+            $('#to,#body').val('');
+            $('#subject').val('New Message');
+            $('#time').val('now');
         },
         error: function(xhr, status, code) {
             showErrorBar('There was an error scheduling your email: '+
