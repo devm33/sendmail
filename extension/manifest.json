@@ -29,7 +29,9 @@
                 "*://mail.google.com/*"
             ],
             "js": [
-                "src/inject/inject.js"
+                "src/libs/mutation-summary.js",
+                "src/libs/jquery-2.1.0.min.js",
+                "src/inject/contentscript.js"
             ],
             "css": [
                 "src/inject/inject.css"
