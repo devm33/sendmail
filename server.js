@@ -3,32 +3,41 @@
 */
 
 /*** Application settings */
-var port = process.env.PORT || 5000; // heroku port || local test port
-var testing = (port == 5000); // the port tells us if we're testing
-var host = 'https://sendmail4911.herokuapp.com';
-if(testing) {
-    host = 'http://localhost:5000';
+var s = {};
+s.port = process.env.PORT || 5000; // heroku port || local test port
+s.testing = (s.port == 5000); // the port tells us if we're testing
+s.host = 'https://sendmail4911.herokuapp.com';
+if(s.testing) {
+    s.host = 'http://localhost:5000';
 }
 
 /*** Required modules */
 var express = require('express');
 var request = require('request');
+var node_redis = require('redis');
 var RedisStore = require('connect-redis')(express);
-var secrets = require('./secrets.json');   /* keys, codes, etc. */
-var auth    = require('./lib/auth.js')(host);/* lib for auth routes */
-var user    = require('./lib/user.js');    /* user routes, api calls */
-var mail    = require('./lib/mail.js');    /* mail handling methods */
-var error   = require('./lib/error.js');   /* error handling methods */
+var url = require('url');
 
 /*** Establish database connection */
-var rtg, redis, redis_opts;
-if (process.env.REDISTOGO_URL) {
-    rtg   = require("url").parse(process.env.REDISTOGO_URL);
-    redis = require("redis").createClient(rtg.port, rtg.hostname);
-    redis.auth(rtg.auth.split(":")[1]);
-} else {
-    redis = require("redis").createClient();
+s.db_url = url.parse('redis://localhost:6379');
+if(process.env.REDISTOGO_URL){
+    s.db_url = url.parse(process.env.REDISTOGO_URL);
 }
+s.redis = node_redis.createClient(s.db_url.port, s.db_url.hostname);
+if(s.db_url.auth) {
+    s.db_pass = s.db_url.auth.split(":")[1];
+    s.db_auth = function(){ s.redis.auth(s.db_pass); };
+    s.redis.addListener('connected', s.db_auth);
+    s.redis.addListener('reconnected', s.db_auth);
+    s.db_auth();
+}
+
+/*** Local requires */
+var secrets = require('./secrets.json');   /* keys, codes, etc. */
+var auth    = require('./lib/auth.js')(s); /* lib for auth routes */
+var user    = require('./lib/user.js');    /* user routes, api calls */
+var mail    = require('./lib/mail.js')(s); /* mail handling methods */
+var error   = require('./lib/error.js');   /* error handling methods */
 
 /*** Configure express application */
 var app = express();
@@ -43,7 +52,7 @@ app.set('views', __dirname + '/views');
 app.use(express.compress());
 
 // serve files out of static dir
-app.use(express.static(__dirname + '/static', {maxAge: 31536000}));
+app.use(express.static(__dirname + '/static', {maxAge: 31536000})); // TODO cache bust me
 
 // middleware for post data processing
 app.use(express.json());
@@ -54,20 +63,19 @@ app.use(express.cookieParser(secrets.cookie_pass || 'dumb pass'));
 
 // use express's session handling for most of user management
 app.use(express.session({
-    store: new RedisStore({client: redis})
+    store: new RedisStore({client: s.redis})
 }));
 
 /*** Endpoints */
 app.get('/', function(req, res){
     var template = 'landing';
     var opts = {'gauth_url': auth.gauth_url};
-    if (req.session.name) {
-        if (req.session.error) {
-            opts.err = "There was an error logging in";
-        } else {
-            template = 'main';
-            opts = {'loading': (req.session.id_token === undefined)};
-        }
+    if(req.session.error) {
+        opts.err = "There was an error logging in";
+    } else if(req.session.authenticated) {
+        template = 'main';
+        opts = {'loading': req.session.loading,
+            'now': (new Date()).toJSON().slice(0,-5) };
     }
     res.render(template, opts);
 });
@@ -83,8 +91,6 @@ app.post('/schedule', mail.schedule); /* TODO in terms of our api,
 require('./lib/error.js')(app);
 
 /*** Start server */
-app.listen(port, function() {
-    console.log('Listening on ' + port);
+app.listen(s.port, function() {
+    console.log('Listening on ' + s.port);
 });
-
-
