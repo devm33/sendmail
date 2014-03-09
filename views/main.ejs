@@ -5,7 +5,7 @@
         <img class="loading128" src="/sendmail-loading-128-opt.gif" alt="loading" />
         <p>Loading...</p>
     </div></div>
-<% } %>
+<% } /* TODO this should not happen if profile already exists before page request */ %>
     
 <div id="container">
     <% include headerbar %>
@@ -19,7 +19,7 @@
         <textarea id="body" name="body"></textarea>
         <% //todo schedule gui needs help /this whole form needs help %>
         <label for="time">When:</label>
-        <input id="time" name="time" type="text" readonly value="now" />
+        <input id="time" name="time" type="datetime" value="<%= now %>" />
         <input type="submit" id="schedule" class="btn right" value="Submit" />
     </form>
 </div>
