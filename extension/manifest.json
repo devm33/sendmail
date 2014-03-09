@@ -32,7 +32,7 @@
                 "src/libs/mutation-summary.js",
                 "src/libs/jquery-2.1.0.min.js",
                 "src/inject/contentscript.js"
-            ],
+            ]
         }
     ]
 }
