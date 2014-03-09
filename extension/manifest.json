@@ -1,0 +1,38 @@
+{
+    "manifest_version": 2,
+    "name": "SendMail",
+    "description": "Extension for SendMail services in Gmail",
+    "version": "0.1",
+    "homepage_url": "http://sendmail4911.herokuapp.com",
+    "icons": {
+        "32": "icons/sendmail-32.png",
+        "64": "icons/sendmail-64.png",
+        "128": "icons/sendmail-128.png"
+    },
+    "background": {
+        "scripts": [
+            "src/bg/background.js"
+        ],
+        "persistent": false
+    },
+    "browser_action": {
+        "default_icon": "icons/icon.png",
+        "default_title": "SendMail",
+        "default_popup": "src/browser_action/browser_action.html"
+    },
+    "permissions": [
+        "*://mail.google.com/*"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "*://mail.google.com/*"
+            ],
+            "js": [
+                "src/libs/mutation-summary.js",
+                "src/libs/jquery-2.1.0.min.js",
+                "src/inject/contentscript.js"
+            ]
+        }
+    ]
+}
