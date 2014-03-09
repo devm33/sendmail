@@ -23,12 +23,13 @@ var loadProfile = function(){
         success: function(profile) {
             $('div.lightbox').remove();
             var hbr = $('#header-bar .right');
-            hbr.append('<img src="'+profile.image.url+'" class="face-circle" />');
+            hbr.append('<img src="'+profile.imageUrl+'" class="face-circle" />');
             /* hbr.append(profile.emails[0].value); looks ugly? */
             hbr.append('<div id="logout" class="btn">Sign Out</div>');
-            $('#from').val(profile.emails[0].value).attr('readonly', true);
+            $('#from').val( profile.email).attr('readonly', true);
         },
         error: function(xhr, status, error) {
+            $('div.lightbox').remove();
             if (xhr.status === 409 && profile_wait_count < profile_wait_max) {
                 /* content just isnt ready yet, but never do anything infinitely */
                 profile_wait_count += 1;
@@ -43,19 +44,30 @@ var loadProfile = function(){
 };
 
 var submitEmailForm = function(event){
-    console.log($('#compose').serialize());
+    /* TODO do some client-side validation */
+    /* TODO ^related, maybe warn users if their time is the past
+     * and it will be sent now if they proceed */
+
+    var box = showLoadBox('Sending message...');
     $.ajax({
         url: '/schedule',
         type: 'POST',
         dataType: 'json',
         data: $('#compose').serialize(),
-        success: function(data) {
-            showSuccessBar('E-mail successfully scheduled.', 1);
-            /* TODO clear out form values */
+        success: function(data, status, xhr) {
+            showSuccessBar('E-mail successfully scheduled.', 2);
+            /* TODO sorry could be cleaner code */
+            $('#to,#body').val('');
+            $('#subject').val('New Message');
+            //$('#time').val(dateLocal());
+            $('#time').val((new Date()).toJSON().slice(0,-5));
         },
         error: function(xhr, status, code) {
             showErrorBar('There was an error scheduling your email: '+
                 (xhr.responseText || code));
+        },
+        complete: function() {
+            box.remove();
         }
     });
     event.preventDefault(); /*stop default form submit, should be blank,
@@ -64,7 +76,7 @@ var submitEmailForm = function(event){
 
 var showErrorBar = function(msg, wait) {
     var bar = $('#error-bar');
-    if(bar.length == 0) {
+    if(bar.length === 0) {
         bar = $('<div id="error-bar"></div>');
     }
     bar.html(msg);
@@ -78,6 +90,15 @@ var showErrorBar = function(msg, wait) {
 
 var showSuccessBar = function(msg, wait) {
     showErrorBar(msg, wait).addClass('success');
+};
+
+var showLoadBox = function(msg) {
+    var box = $('<div class="lightbox"><div class="content">'+
+        '<img class="loading128" src="/sendmail-loading-128-opt.gif" alt="loading" />'+
+        '<p>'+(msg || 'Loading...')+'</p>'+
+    '</div></div>');
+    box.appendTo('body');
+    return box;
 };
 
 $(document).ready(function(){
