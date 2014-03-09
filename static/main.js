@@ -23,10 +23,10 @@ var loadProfile = function(){
         success: function(profile) {
             $('div.lightbox').remove();
             var hbr = $('#header-bar .right');
-            hbr.append('<img src="'+profile.image.url+'" class="face-circle" />');
+            hbr.append('<img src="'+profile.imageUrl+'" class="face-circle" />');
             /* hbr.append(profile.emails[0].value); looks ugly? */
             hbr.append('<div id="logout" class="btn">Sign Out</div>');
-            $('#from').val(profile.emails[0].value).attr('readonly', true);
+            $('#from').val( profile.email).attr('readonly', true);
         },
         error: function(xhr, status, error) {
             $('div.lightbox').remove();
@@ -44,6 +44,10 @@ var loadProfile = function(){
 };
 
 var submitEmailForm = function(event){
+    /* TODO do some client-side validation */
+    /* TODO ^related, maybe warn users if their time is the past
+     * and it will be sent now if they proceed */
+
     var box = showLoadBox('Sending message...');
     $.ajax({
         url: '/schedule',
@@ -55,7 +59,8 @@ var submitEmailForm = function(event){
             /* TODO sorry could be cleaner code */
             $('#to,#body').val('');
             $('#subject').val('New Message');
-            $('#time').val('now');
+            //$('#time').val(dateLocal());
+            $('#time').val((new Date()).toJSON().slice(0,-5));
         },
         error: function(xhr, status, code) {
             showErrorBar('There was an error scheduling your email: '+
@@ -71,7 +76,7 @@ var submitEmailForm = function(event){
 
 var showErrorBar = function(msg, wait) {
     var bar = $('#error-bar');
-    if(bar.length == 0) {
+    if(bar.length === 0) {
         bar = $('<div id="error-bar"></div>');
     }
     bar.html(msg);
