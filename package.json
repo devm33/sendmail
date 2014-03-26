@@ -7,12 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "express": "3.x",
-    "request": "2.x",
-    "ejs": "0.x",
-    "redis": "0.x",
-    "connect-redis": "1.x",
-    "nodemailer": "x"
+    "express": "3.4.x",
+    "request": "2.34.x",
+    "ejs": "0.8.x",
+    "redis": "0.10.x",
+    "connect-redis": "1.4.x",
+    "nodemailer": "0.6.x"
   },
   "repository": {
     "type": "git",
