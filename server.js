@@ -35,7 +35,7 @@ if(s.db_url.auth) {
 /*** Local requires */
 var secrets = require('./secrets.json');   /* keys, codes, etc. */
 var auth    = require('./lib/auth.js')(s); /* lib for auth routes */
-var user    = require('./lib/user.js');    /* user routes, api calls */
+var user    = require('./lib/user.js')(s); /* user routes, api calls */
 var mail    = require('./lib/mail.js')(s); /* mail handling methods */
 var error   = require('./lib/error.js');   /* error handling methods */
 
