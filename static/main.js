@@ -1,6 +1,6 @@
 (function($){ /* start clean scope */
 
-var profile_wait_max = 5; /* max number of 409's to ignore */
+var profile_wait_max = 10; /* max number of 409's to ignore */
 var profile_wait_count = 0; /* number of 409's ignored so far */
 
 var logOut = function(){
