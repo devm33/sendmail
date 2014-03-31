@@ -13,9 +13,9 @@ command -v jshint >/dev/null 2>&1 || { echo >&2 "Please install jshint: npm inst
 
 JSFILES="*.js lib/*.js static/*.js"
 
-if grep -q 'console.log' $JSFILES
+if grep -q 'console\\.log' $JSFILES
 then
-    echo "Warning: console.log found in js"
+    echo "Warning: console\\.log found in js"
     grep 'console.log' $JSFILES
 fi
 
