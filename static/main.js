@@ -24,17 +24,15 @@ var loadProfile = function(){
             $('div.lightbox').remove();
             var hbr = $('#header-bar .right');
             hbr.append('<img src="'+profile.imageUrl+'" class="face-circle" />');
-            /* hbr.append(profile.emails[0].value); looks ugly? */
-            hbr.append('<div id="logout" class="btn">Sign Out</div>');
             $('#from').val( profile.email).attr('readonly', true);
         },
         error: function(xhr, status, error) {
-            $('div.lightbox').remove();
             if (xhr.status === 409 && profile_wait_count < profile_wait_max) {
                 /* content just isnt ready yet, but never do anything infinitely */
                 profile_wait_count += 1;
                 setTimeout(loadProfile, 500);
             } else {
+                $('div.lightbox').remove();
                 showErrorBar(': There was an error fetching your profile.'+
                 'You will be logged out in a sec. Sorry! ('+error+')');
                 setTimeout(logOut, 1000);
