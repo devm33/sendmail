@@ -1,6 +1,6 @@
 $(document).ready(function(){
     var reload = function(){
-        window.location.reload(true);
+        location.reload(true);
     }
     var getUserDataCallback = function(userDataItem){
         if(userDataItem.user){
@@ -16,11 +16,9 @@ $(document).ready(function(){
         chrome.storage.local.set({"user": null}, reload);
     });
     $("#SignInButton").on("click", function(){
-        //TODO sign in yo!
-        var user = new Object();
-        user.name = "dave32392@gmail.com";
-        user.id = "testID";
-        chrome.storage.local.set({"user": user}, reload);
-        reload();
+        /*sign in yo!*/
+        var createProperties = new Object();
+        createProperties.url = "https://sendmail4911.herokuapp.com/extensionauth";
+        chrome.tabs.create(createProperties);
     });
 });
