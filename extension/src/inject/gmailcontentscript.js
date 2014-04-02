@@ -1,11 +1,6 @@
 //TODO Clean up class names that are Gmail specific -- perhaps copycat and use our our classes and styles. will be harder to fix selection...
 var getUserDataCallback = function(userDataItem){
     if(userDataItem.user){
-        //TODO only do injection if logged in. 
-    }
-}
-chrome.storage.local.get("user", getUserDataCallback);
- 
 var handleSendRowChanges = function(summaries){
     var rowSummary = summaries[0];
     rowSummary.added.forEach(function(newRow){
@@ -70,3 +65,6 @@ $(document).on({
         $(this).toggleClass("T-I-JW", false);
     }
 }, ".hover-button");
+    }
+}
+chrome.storage.local.get("user", getUserDataCallback);

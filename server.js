@@ -69,7 +69,7 @@ app.use(express.session({
 /*** Endpoints */
 app.get('/', function(req, res){
     var template = 'landing';
-    var opts = {'gauth_url': auth.gauth_url};
+    var opts = {'gauth_url': auth.gauth_url, 'extension':false};
     if(req.session.error) {
         opts.err = "There was an error logging in";
     } else if(req.session.authenticated) {
@@ -77,6 +77,11 @@ app.get('/', function(req, res){
         opts = {'loading': req.session.loading,
             'now': (new Date()).toJSON().slice(0,-5) };
     }
+    res.render(template, opts);
+});
+app.get('/extensionauth', function(req, res){
+    var template = 'landing';
+    var opts = {'gauth_url': auth.gauth_url, 'extension': true};
     res.render(template, opts);
 });
 app.get('/profile', user.profile);
