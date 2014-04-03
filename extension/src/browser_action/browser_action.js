@@ -1,8 +1,11 @@
 $(document).ready(function(){
+    var reload = function(){
+        location.reload(true);
+    };
     var getUserDataCallback = function(userDataItem){
         if(userDataItem.user){
             $("#SignInButton").hide();
-            $("#Username").text(userDataItem.user.name);
+            $("#Username").text(userDataItem.user.email);
         }
         else{
             $("#SignedInPrompt").hide();
@@ -14,8 +17,6 @@ $(document).ready(function(){
     });
     $("#SignInButton").on("click", function(){
         /*sign in yo!*/
-        var createProperties = new Object();
-        createProperties.url = config.url; 
-        chrome.tabs.create(createProperties);
+        chrome.tabs.create({'url':config.url});
     });
 });

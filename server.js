@@ -80,7 +80,7 @@ app.get('/', function(req, res){
     res.render(template, opts);
 });
 app.get('/extensionauth', function(req, res){
-    //TODO use a flagged version of this URL, so that the extension knows whether to act or not on callback
+    //TODO use a flagged version of this URL or set a session variable or someting, so that the extension knows whether to act or not on callback
     res.redirect(auth.gauth_url);
 });
 app.get('/profile', user.profile);

@@ -5,9 +5,7 @@ var authenticated = function() {
 var handleKeyInsertion = function(summaries){
     var keyInsertionSummary = summaries[0];
     keyInsertionSummary.added.forEach(function(info){    
-        var user = new Object();
-        user.name = $(info).data("email");
-        user.key = $(info).data("key");
+        var user = $(info).data();
         chrome.storage.local.set({"user": user}, authenticated);
     });
 };
