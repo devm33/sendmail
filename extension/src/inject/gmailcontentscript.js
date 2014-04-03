@@ -1,14 +1,6 @@
-/*var jquery = document.createElement('script');
-jquery.onload = function(){
-    this.parentNode.removeChild(this);
-}
-jquery.src = "//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js";
-(document.head||document.documentElement).appendChild(jquery);
-var script = document.createElement('script');
-script.onload = jquery.onload;
-script.src = chrome.extension.getURL('src/inject/inject.js');
-(document.head||document.documentElement).appendChild(script);*/
 //TODO Clean up class names that are Gmail specific -- perhaps copycat and use our our classes and styles. will be harder to fix selection...
+var getUserDataCallback = function(userDataItem){
+    if(userDataItem.user){
 var handleSendRowChanges = function(summaries){
     var rowSummary = summaries[0];
     rowSummary.added.forEach(function(newRow){
@@ -73,3 +65,6 @@ $(document).on({
         $(this).toggleClass("T-I-JW", false);
     }
 }, ".hover-button");
+    }
+}
+chrome.storage.local.get("user", getUserDataCallback);
