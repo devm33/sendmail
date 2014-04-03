@@ -30,7 +30,8 @@
         },
         {
             "matches": [
-                "*://sendmail4911.herokuapp.com/*"
+                "https://sendmail4911.herokuapp.com/*",
+                "*://localhost/*"
             ],
             "js": [
                 "src/libs/jquery-2.1.0.min.js",

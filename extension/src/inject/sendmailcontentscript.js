@@ -4,10 +4,10 @@ var authenticated = function() {
 
 var handleKeyInsertion = function(summaries){
     var keyInsertionSummary = summaries[0];
-    keyInsertionSummary.added.forEach(function(newRow){    
+    keyInsertionSummary.added.forEach(function(info){    
         var user = new Object();
-        user.name = $("#ExtensionEmail").text();
-        user.key = $("#ExtensionKey").text();
+        user.name = $(info).data("email");
+        user.key = $(info).data("key");
         chrome.storage.local.set({"user": user}, authenticated);
     });
 };

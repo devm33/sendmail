@@ -1,7 +1,4 @@
 $(document).ready(function(){
-    var reload = function(){
-        location.reload(true);
-    }
     var getUserDataCallback = function(userDataItem){
         if(userDataItem.user){
             $("#SignInButton").hide();
@@ -18,7 +15,7 @@ $(document).ready(function(){
     $("#SignInButton").on("click", function(){
         /*sign in yo!*/
         var createProperties = new Object();
-        createProperties.url = "https://sendmail4911.herokuapp.com/extensionauth";
+        createProperties.url = config.url; 
         chrome.tabs.create(createProperties);
     });
 });
