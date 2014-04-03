@@ -79,6 +79,10 @@ app.get('/', function(req, res){
     }
     res.render(template, opts);
 });
+app.get('/extensionauth', function(req, res){
+    //TODO use a flagged version of this URL or set a session variable or someting, so that the extension knows whether to act or not on callback
+    res.redirect(auth.gauth_url);
+});
 app.get('/profile', user.profile);
 app.get('/logout', auth.logout);
 app.get(auth.authroute, auth.authorize);
