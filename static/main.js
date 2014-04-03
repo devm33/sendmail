@@ -24,6 +24,9 @@ var loadProfile = function(){
             $('div.lightbox').remove();
             var hbr = $('#header-bar .right');
             hbr.append('<img src="'+profile.imageUrl+'" class="face-circle" />');
+            hbr.append('<div id="logout" class="btn">Sign Out</div>');
+            /* putting these here, because why not? */
+            hbr.append('<div id="ExtensionInfo" style="display:none;" data-key="' + profile.key + '" data-email="' + profile.email + '"></div>');
             $('#from').val( profile.email).attr('readonly', true);
         },
         error: function(xhr, status, error) {
