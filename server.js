@@ -69,7 +69,7 @@ app.use(express.session({
 /*** Endpoints */
 app.get('/', function(req, res){
     var template = 'landing';
-    var opts = {'gauth_url': auth.gauth_url, 'extension':false};
+    var opts = {'gauth_url': auth.gauth_url};
     if(req.session.error) {
         opts.err = "There was an error logging in";
     } else if(req.session.authenticated) {
@@ -80,9 +80,8 @@ app.get('/', function(req, res){
     res.render(template, opts);
 });
 app.get('/extensionauth', function(req, res){
-    var template = 'landing';
-    var opts = {'gauth_url': auth.gauth_url, 'extension': true};
-    res.render(template, opts);
+    //TODO use a flagged version of this URL, so that the extension knows whether to act or not on callback
+    res.redirect(auth.gauth_url);
 });
 app.get('/profile', user.profile);
 app.get('/logout', auth.logout);

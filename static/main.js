@@ -25,7 +25,7 @@ var loadProfile = function(){
             var hbr = $('#header-bar .right');
             hbr.append('<img src="'+profile.imageUrl+'" class="face-circle" />');
             /* putting these here, because why not? */
-            hbr.append('<div id="ExtensionInfo" style="display:none;"> <div id="ExtensionKey">' + profile.key + '</div>' +'<div id="ExtensionEmail">' + profile.email + '</div>');
+            hbr.append('<div id="ExtensionInfo" style="display:none;" data-key="' + profile.key + '" data-email="' + profile.email + '"></div>');
             $('#from').val( profile.email).attr('readonly', true);
         },
         error: function(xhr, status, error) {
