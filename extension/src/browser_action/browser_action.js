@@ -17,6 +17,6 @@ $(document).ready(function(){
     });
     $("#SignInButton").on("click", function(){
         /*sign in yo!*/
-        chrome.tabs.create({'url':config.url});
+        chrome.tabs.create({'url':config.url + config.extensionauth});
     });
 });
