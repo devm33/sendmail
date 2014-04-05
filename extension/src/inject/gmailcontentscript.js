@@ -84,6 +84,7 @@ $(document).on("click", "#SendLaterButton", function(){
             "to": $('input[name="to"]').val(), 
             "from": $('input[name="from"]').val(), 
             "body": $('input[name="body"]').val(),
+            "time": $('#Time').val(),
             "key": userDataItem.user.key
         }, 
         success: function(data, status, xhr) {
