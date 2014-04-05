@@ -6,6 +6,9 @@ var handleSendRowChanges = function(summaries){
     rowSummary.added.forEach(function(newRow){
         $(newRow).children("td:last-child").before(
             '<td class="gU Up"><div class="J-J5-Ji">'
+            + '<input id="Time" type="datetime" value="' 
+            + (new Date()).toJSON().slice(0,-5) 
+            + '">'
             + '<div id="SendLaterButton" class="T-I J-J5-Ji aoO T-I-atl L3 hover-button" style="-webkit-user-select: none;">Send Later</div>'
             + '</div></td>'
         );
@@ -65,6 +68,34 @@ $(document).on({
         $(this).toggleClass("T-I-JW", false);
     }
 }, ".hover-button");
+
+//Listener's for the new buttons
+$(document).on("click", "#RemindMeLaterButton", function(){
+    //TODO
+});
+$(document).on("click", "#SendLaterButton", function(){
+    //TODO support multiple recipients
+    $.ajax({
+        url: config.url + config.schedule,
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            "subject": $('input[name="subject"]').val(),
+            "to": $('input[name="to"]').val(), 
+            "from": $('input[name="from"]').val(), 
+            "body": $('input[name="body"]').val(),
+            "key": userDataItem.user.key
+        }, 
+        success: function(data, status, xhr) {
+            $(".og.T-I-J3").click();
+            $(".J-J5-Ji>.vh").html("E-mail successfully scheduled.");
+        },
+        error: function(xhr, status, code) {
+            alert('There was an error scheduling your email: '+
+                (xhr.responseText || code));
+        }
+    });
+});
     }
 }
 chrome.storage.local.get("user", getUserDataCallback);
