@@ -89,7 +89,7 @@ $(document).on("click", "#SendLaterButton", function(){
         }, 
         success: function(data, status, xhr) {
             $(".og.T-I-J3").click();
-            $(".J-J5-Ji>.vh").html("E-mail successfully scheduled.");
+            $(".b8.UC>.J-J5-Ji>.vh").html("E-mail successfully scheduled.");
         },
         error: function(xhr, status, code) {
             alert('There was an error scheduling your email: '+
