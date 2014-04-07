@@ -86,6 +86,7 @@ app.get('/extensionauth', function(req, res){
 app.get('/profile', user.profile);
 app.get('/logout', auth.logout);
 app.get(auth.authroute, auth.authorize);
+app.post('/remind', mail.remind);
 app.post('/schedule', mail.schedule); /* TODO in terms of our api,
 * should we accept all here (http://expressjs.com/3x/api.html#app.all)
 * or would it just obfuscate things? thoughts?
