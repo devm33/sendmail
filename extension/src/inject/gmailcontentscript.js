@@ -88,6 +88,7 @@ $(document).on("click", "#SendLaterButton", function(){
             "key": userDataItem.user.key
         }, 
         success: function(data, status, xhr) {
+            //This is the discard button. Seems to be the best way to force gmail to close and disregard the message
             $(".og.T-I-J3").click();
             $(".b8.UC>.J-J5-Ji>.vh").html("E-mail successfully scheduled.");
         },
