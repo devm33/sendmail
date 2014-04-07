@@ -71,7 +71,23 @@ $(document).on({
 
 //Listener's for the new buttons
 $(document).on("click", "#RemindMeLaterButton", function(){
-    //TODO
+    $.ajax({
+        url: config.url + config.remind,
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            "key": userDataItem.user.key,
+            "subject": $("h2.hP").text()
+        }, 
+        success: function(data, status, xhr) {
+            //TODO handle prettier
+            alert("Reminded!");
+        },
+        error: function(xhr, status, code) {
+            alert('There was an error scheduling your reminder: '+
+                (xhr.responseText || code));
+        }
+    });
 });
 $(document).on("click", "#SendLaterButton", function(){
     //TODO support multiple recipients
