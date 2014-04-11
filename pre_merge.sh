@@ -12,6 +12,8 @@ compass compile -e production --force
 command -v jshint >/dev/null 2>&1 || { echo >&2 "Please install jshint: npm install -g jshint"; exit 1;}
 
 JSFILES="*.js lib/*.js static/*.js"
+EXCLUDE=$(sed 's/\([\.\/()]\)/\\\1/g' <<< "static/ejs.min.js ") # escape special chars from paths #TODO replaces spaces with \|
+JSFILES=$(echo $JSFILES | sed "s/\($EXCLUDE\)//g")
 
 if grep -q 'console\\.log' $JSFILES
 then
