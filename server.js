@@ -90,6 +90,7 @@ app.post('/schedule', mail.schedule); /* TODO in terms of our api,
 * should we accept all here (http://expressjs.com/3x/api.html#app.all)
 * or would it just obfuscate things? thoughts?
 */
+app.get('/mailforuser', mail.pending); /* TODO guys I need help naming this route */
 
 /*** Add error handlers */
 require('./lib/error.js')(app);
