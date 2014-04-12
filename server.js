@@ -53,6 +53,7 @@ app.use(express.compress());
 
 // serve files out of static dir
 app.use(express.static(__dirname + '/static', {maxAge: 31536000})); // TODO cache bust me
+app.use('/views', express.static(__dirname + '/views'));
 
 // middleware for post data processing
 app.use(express.json());
@@ -90,7 +91,8 @@ app.post('/schedule', mail.schedule); /* TODO in terms of our api,
 * should we accept all here (http://expressjs.com/3x/api.html#app.all)
 * or would it just obfuscate things? thoughts?
 */
-app.get('/mailforuser', mail.pending); /* TODO guys I need help naming this route */
+app.get('/mailforuser', mail.pending); /* TODO totally need help naming this route */
+app.all('/deletemail/:id?', mail.del); /* TODO tempted to just accept delete ha, again naming =\ */
 
 /*** Add error handlers */
 require('./lib/error.js')(app);
