@@ -9,10 +9,7 @@ var logOut = function(){
         success: function(){
             window.location.href = '/';
         },
-        error: function(){
-            showErrorBar(xhr.status+': There was an error logging you out.'+
-            'Please refresh to try again / see if it worked anyways. Sorry!');
-        }
+        error: standardErrorFn('logging you out')
     });
 };
 
@@ -22,7 +19,7 @@ var loadProfile = function(){
         dataType: 'json',
         success: function(profile) {
             $('div.lightbox').remove();
-            var hbr = $('#header-bar .right');
+            var hbr = $('#header-bar .right'); /* TODO using templates could make this better */
             hbr.append('<img src="'+profile.imageUrl+'" class="face-circle" />');
             hbr.append('<div id="logout" class="btn">Sign Out</div>');
             /* putting these here, because why not? */
@@ -36,11 +33,29 @@ var loadProfile = function(){
                 setTimeout(loadProfile, 500);
             } else {
                 $('div.lightbox').remove();
-                showErrorBar(': There was an error fetching your profile.'+
+                showErrorBar('There was an error fetching your profile.'+
                 'You will be logged out in a sec. Sorry! ('+error+')');
                 setTimeout(logOut, 1000);
             }
         }
+    });
+};
+
+var populateEmailForm = function(obj) {
+    $.each(obj, function(key, val) {
+        if(compose_els[key]) {
+            compose_els[key].val(val);
+        }
+    });
+};
+
+var clearEmailForm = function() {
+    populateEmailForm({
+        'to': '',
+        'id': '',
+        'body': '',
+        'time': (new Date()).toJSON().slice(0,-5),
+        'subject': 'New Message'
     });
 };
 
@@ -57,16 +72,9 @@ var submitEmailForm = function(event){
         data: $('#compose').serialize(),
         success: function(data, status, xhr) {
             showSuccessBar('E-mail successfully scheduled.', 2);
-            /* TODO sorry could be cleaner code */
-            $('#to,#body').val('');
-            $('#subject').val('New Message');
-            //$('#time').val(dateLocal());
-            $('#time').val((new Date()).toJSON().slice(0,-5));
+            clearEmailForm();
         },
-        error: function(xhr, status, code) {
-            showErrorBar('There was an error scheduling your email: '+
-                (xhr.responseText || code));
-        },
+        error: standardErrorFn('scheduling your email'),
         complete: function() {
             box.remove();
         }
@@ -102,15 +110,149 @@ var showLoadBox = function(msg) {
     return box;
 };
 
-$(document).ready(function(){
-    /* Bind listeners here */
-    $('#container').on('click', '#logout', logOut);
-    $('#container').on('submit', '#compose', submitEmailForm);
+var standardErrorFn = function(msg, time) {
+    return function(xhr, status, code) {
+        console.log(xhr);
+        console.log(status);
+        console.log(code);
+        console.log(arguments);
+        showErrorBar('There was an error ' + msg + ': ' +
+            (xhr.responseJSON.message || xhr.responseText || status) +
+            '. Try again?', time);
+    };
+};
 
+var switchView = function() {
+    if($(this).hasClass('selected')) {
+        return;
+    }
+    view_compose.toggleClass('selected');
+    view_list.toggleClass('selected');
+    compose.toggle();
+    list.toggle();
+    if(view_list.hasClass('selected')) {
+        /* Re-add loading element if not there */
+        if(!list_loading_text.parent()) {
+            list.append(list_loading_text);
+        }
+        var mail_req = {
+            url: '/mailforuser',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data, status, xhr) {
+                mail_list_updated = data;
+            },
+            error: standardErrorFn('fetching your scheduled mail', 3)
+        };
+        var done_func = function() {
+            if(!_.isEqual(mail_list, mail_list_updated)) {
+                mail_list = mail_list_updated;
+                list.html(ejs.render(mail_list_template, {'mail':mail_list}));
+            }
+            list_loading_text.remove();
+        };
+        if(!mail_list_template) {
+            var template_req = {
+                url: '/views/maillist.ejs',
+                type: 'GET',
+                success: function(data, status, xhr) {
+                    mail_list_template = data;
+                },
+                error: standardErrorFn('loading content', 3)
+            };
+            $.when($.ajax(mail_req), $.ajax(template_req)).done(done_func);
+        }
+        else {
+            $.ajax(mail_req).done(done_func);
+        }
+        /* TODO it'd be a decent win to have this check a last mod on
+         * the mail items from redis or something -- rather than using
+         * lodash to do some heavy, albeit nicely optimized, lifting */
+    }
+};
+
+var findMail = function(id, return_index) {
+    if(mail_list) {
+        for(i = 0; i < mail_list.length;  i++) {
+            if(mail_list[i].id !== id) {
+                if(return_index) {
+                    return i;
+                }
+                else {
+                    return mail_list[i];
+                }
+            }
+        }
+    }
+    return;
+};
+
+var editMail = function(){
+    /* Find mail in mail list by id */
+    var mail = findMail($(this).data('id'));
+
+    /* Load mail into form */
+    populateEmailForm(mail);
+
+    /* Switch view to form */
+    view_compose.click();
+};
+
+var deleteMail = function(){
+    var $this = $(this);
+    var id = $this.data('id');
+    var parent = $this.parent();
+    var mail_i = findMail(id, true);
+    $.ajax({
+        url: '/deletemail/'+id,
+        success: function(data, status, xhr) {
+            parent.remove();
+            mail_list.splice(mail_i, 1);
+            showSuccessBar('E-mail successfully deleted.', 2);
+            if(mail_list.length === 0) {
+                /* edge case, rely on template */
+                list.html(ejs.render(mail_list_template));
+            }
+        },
+        error: standardErrorFn('deleting that message')
+    });
+};
+
+$(document).ready(function(){
+    /* Reused elements (minimize dom queries)
+     * note: declared in scope global to this module */
+    view_compose = $('#view-compose');
+    view_list = $('#view-list');
+    compose = $('#compose');
+    list = $('#list');
+    list_loading_text = $('#list-loading-text'); /* TODO maybe use a template and/or make prettier? */
+    compose_els = {
+        'to': $('#to'),
+        'id': $('#id'),
+        'from': $('#from'),
+        'body': $('#body'),
+        'time': $('#time'),
+        'subject': $('#subject'),
+        'compose': $('#compose')
+    };
+
+    /* Bind listeners here */
+    $('#container').on('click', '#logout', logOut)
+        .on('submit', '#compose', submitEmailForm)
+        .on('click', '#switch-view .btn', switchView)
+        .on('click', '.delete', deleteMail)
+        .on('click', '.edit', editMail);
+    $('body').on('click', '#error-bar', function(){$(this).remove();});
+    
     /* Callback for profile data, will pull until it gets it */
     loadProfile();
     /* TODO load profile conditionally, get stuff passed in from node */
-    
 });
+
+/* Var declarations initialized on ready */
+/* dom vars */ var view_compose, view_list, compose, list,
+list_loading_text, compose_els;
+
+/* global vars */ var mail_list, mail_list_updated, mail_list_template;
 
 /* end clean scope */ })(jQuery);
