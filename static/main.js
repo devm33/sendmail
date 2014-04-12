@@ -174,7 +174,7 @@ var switchView = function() {
 var findMail = function(id, return_index) {
     if(mail_list) {
         for(i = 0; i < mail_list.length;  i++) {
-            if(mail_list[i].id !== id) {
+            if(mail_list[i].id == id) {
                 if(return_index) {
                     return i;
                 }
