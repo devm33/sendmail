@@ -24,7 +24,7 @@ body {
             padding: 5px;
             background-color: #fff;
             @include border-radius(10px);
-            img.loading128 {
+            img.image128 {
                 display: block;
                 width: 128px;
                 height: 128px;
@@ -68,6 +68,14 @@ body {
             color: #fff;
             @include inline-block;
             margin-bottom: 1em;
+
+            /* currently using this for compose/view switch */
+            &.selected {
+                background-color: #ccc;
+            }
+            &.delete {
+                background-color: #d23;
+            }
         }
         
         #signinButton {
