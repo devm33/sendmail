@@ -1,14 +1,18 @@
 <% include head %>
 
-<% if (loading) { %>
+<% if (locals.loading) { %>
     <div class="lightbox"><div class="content">
-        <img class="loading128" src="/sendmail-loading-128-opt.gif" alt="loading" />
+        <img class="image128" src="/sendmail-loading-128-opt.gif" alt="loading" />
         <p>Loading...</p>
     </div></div>
-<% } /* TODO this should not happen if profile already exists before page request */ %>
+<% } %>
     
 <div id="container">
     <% include headerbar %>
+    <div id="switch-view">
+        <div id="view-compose" class="btn selected">Compose</div>
+        <div id="view-list" class="btn">Scheduled</div>
+    </div>
     <form id="compose">
         <input id="subject" name="subject" value="New Message" type="text" />
         <label for="to">To:</label>
@@ -20,11 +24,18 @@
         <% //todo schedule gui needs help /this whole form needs help %>
         <label for="time">When:</label>
         <input id="time" name="time" type="datetime" value="<%= now %>" /><%/* TODO make a lot nicer */%>
+        <input id="id" name="id" type="hidden" value="" />
         <input type="submit" id="schedule" class="btn right" value="Submit" />
     </form>
+    <div id="list" style="display:none;">
+        <img class="image128" src="/sendmail-loading-128-opt.gif" alt="loading" />
+        <span id="list-loading-text">Loading...</span>
+    </div>
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js">
 </script>
-<script src="/main.js"></script>
+<script src="/lodash.custom.min.js"></script>
+<script src="/ejs.min.js"></script>
+<script src="/main.js"></script> <%/* TODO min & concat js for prod */%>
 <% include foot %>
