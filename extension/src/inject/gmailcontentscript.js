@@ -83,7 +83,7 @@ $(document).on("click", "#RemindMeLaterButton", function(){
             "key": userDataItem.user.key,
             "time": $("#RemindTime").val(),
             "subject": $("h2.hP").text()
-            //TODO make this more robust selector for greater accuracy and specificity
+            //TODO make this more robust query for greater accuracy and specificity -- select with greater fieldset then just "subject"
         }, 
         success: function(data, status, xhr) {
             //TODO handle prettier and also archive message in mean time
