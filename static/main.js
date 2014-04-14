@@ -48,7 +48,7 @@ var populateEmailForm = function(obj) {
         }
     });
     $('#datetimepick').datetimepicker({
-                value: $('#time').val() == ""?"    /  /     :  ":$('#time').val().replace(/-/g, '/').replace('T', ' ').substring(0, 16)
+                value: compose_els['time'].val() == ""?"    /  /     :  ":compose_els['time'].val().replace(/-/g, '/').replace('T', ' ').substring(0, 16)
     });
 
 };
@@ -247,7 +247,7 @@ $(document).ready(function(){
         minDate:0,
         minTime:0,
         onChangeDateTime:function(dp,$input){
-            $('#time').val($input.val().replace(/\//g, '-').replace(' ', 'T').concat(":00"));
+            compose_els['time'].val($input.val().replace(/\//g, '-').replace(' ', 'T').concat(":00"));
         }
     });
     /* Bind listeners here */
