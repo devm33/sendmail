@@ -26,7 +26,11 @@ var handleMessageHeaderRowChanges = function(summaries){
     var rowSummary = summaries[0];
     rowSummary.added.forEach(function(newRow){
         $(newRow).prepend(
-            '<div class="G-Ni J-J5-Ji"><div id="RemindMeLaterButton" class="T-I J-J5-Ji aFk T-I-ax7 ar7 T-I-JO hover-button" style="-webkit-user-select: none;">Remind Me Later</div></div>'
+            '<div class="G-Ni J-J5-Ji">'  
+            + '<input id="RemindTime" type="datetime" value="' 
+            + (new Date()).toJSON().slice(0,-5) 
+            + '">' 
+            + '<div id="RemindMeLaterButton" class="T-I J-J5-Ji aFk T-I-ax7 ar7 T-I-JO hover-button" style="-webkit-user-select: none;">Remind Me Later</div></div>'
         );
     });
 };
@@ -71,7 +75,25 @@ $(document).on({
 
 //Listener's for the new buttons
 $(document).on("click", "#RemindMeLaterButton", function(){
-    //TODO
+    $.ajax({
+        url: config.url + config.remind,
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            "key": userDataItem.user.key,
+            "time": $("#RemindTime").val(),
+            "subject": $("h2.hP").text()
+            //TODO make this more robust query for greater accuracy and specificity -- select with greater fieldset then just "subject"
+        }, 
+        success: function(data, status, xhr) {
+            //TODO handle prettier and also archive message in mean time
+            alert("Scheduled!");
+        },
+        error: function(xhr, status, code) {
+            alert('There was an error scheduling your reminder: '+
+                (xhr.responseText || code));
+        }
+    });
 });
 $(document).on("click", "#SendLaterButton", function(){
     //TODO support multiple recipients

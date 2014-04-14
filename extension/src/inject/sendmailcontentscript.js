@@ -1,5 +1,6 @@
 var authenticated = function() {
     alert("You are now authenticated! Proceed to GMail to use the SendMail Extension");
+    //TODO make this a bit cleaner, and also alert user that they will need to refresh any active gmail sessions
 };
 
 var handleKeyInsertion = function(summaries){
