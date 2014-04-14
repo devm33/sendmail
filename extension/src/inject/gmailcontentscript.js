@@ -72,10 +72,11 @@ var handleMessageHeaderRowChanges = function(summaries){
         );
         $("#RemindMeLaterDateTimePicker").datetimepicker({
             lang: 'en',
-            roundTime: 'ceil',
             step:30,
             mask:true,
-            format: "Y/m/d H:i"
+            format: "Y/m/d H:i",
+            minDate: 0,
+            minTime: 0
         });
         $("#RemindMeLaterDialog").dialog({ 
             autoOpen: false,
@@ -141,14 +142,13 @@ $(document).on("click", "#RemindMeLaterButton", function(){
     $("#RemindMeLaterDialog").dialog("open");
 });
 $(document).on("click", "#SendLaterButton", function(){
-    //TODO support multiple recipients
     $.ajax({
         url: config.url + config.schedule,
         type: 'POST',
         dataType: 'json',
         data: {
             "subject": $('input[name="subject"]').val(),
-            "to": $('input[name="to"]').val(), 
+            "to": $('input[name="to"]').map(function(){ return this.value; }).get().join(", "), 
             "from": $('input[name="from"]').val(), 
             "body": $('input[name="body"]').val(),
             "time": $('#Time').val(),
