@@ -1,14 +1,49 @@
 //TODO Clean up class names that are Gmail specific -- perhaps copycat and use our our classes and styles. will be harder to fix selection...
 var getUserDataCallback = function(userDataItem){
     if(userDataItem.user){
+var submitRemindMeLaterDialog = function(){
+    var submitButton = $("#RemindMeLaterDialogSubmitButton");
+    var cancelButton = $("#RemindMeLaterDialogCancelButton");
+    var dateTimeField = $("#RemindMeLaterDateTimePicker");
+    var dialog = $("#RemindMeLaterDialog");
+    submitButton.button("option", "disabled", true).button("option", "label", "Please Wait...").button("option", "icons", { primary: "ui-icon-spinner", secondary: null });
+    cancelButton.button("option", "disabled", true);
+    dateTimeField.prop("disabled", true);
+    $.ajax({
+        url: config.url + config.remind,
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            "key": userDataItem.user.key,
+            "time": dateTimeField.val().replace(/\//g, '-').replace(' ', 'T').concat(':00'), 
+            "subject": $("h2.hP").text()
+            //TODO make this more robust query for greater accuracy and specificity -- select with greater fieldset then just "subject"
+        }, 
+        success: function(data, status, xhr) {
+            //TODO handle prettier and also archive message in mean time
+            alert("Scheduled!");
+        },
+        error: function(xhr, status, code) {
+            alert('There was an error scheduling your reminder: '+
+                (xhr.responseText || code));
+        },
+        complete: function(xhr, status){
+            submitButton.button("option", "disabled", false).button("option", "label", "Schedule Reminder").button("option", "icons", { primary: null, secondary: null });
+            cancelButton.button("option", "disabled", false);
+            dateTimeField.prop("disabled", false);
+            dialog.dialog("close");
+        }
+    });
+};
+
 var handleSendRowChanges = function(summaries){
     var rowSummary = summaries[0];
     rowSummary.added.forEach(function(newRow){
         $(newRow).children("td:last-child").before(
             '<td class="gU Up"><div class="J-J5-Ji">'
-            + '<input id="Time" type="datetime" value="' 
-            + (new Date()).toJSON().slice(0,-5) 
-            + '">'
+            //+ '<input id="Time" type="datetime" value="' 
+            //+ (new Date()).toJSON().slice(0,-5) 
+            //+ '">'
             + '<div id="SendLaterButton" class="T-I J-J5-Ji aoO T-I-atl L3 hover-button" style="-webkit-user-select: none;">Send Later</div>'
             + '</div></td>'
         );
@@ -27,11 +62,39 @@ var handleMessageHeaderRowChanges = function(summaries){
     rowSummary.added.forEach(function(newRow){
         $(newRow).prepend(
             '<div class="G-Ni J-J5-Ji">'  
-            + '<input id="RemindTime" type="datetime" value="' 
-            + (new Date()).toJSON().slice(0,-5) 
-            + '">' 
+            //+ '<input id="RemindTime" type="datetime" value="' 
+            //+ (new Date()).toJSON().slice(0,-5) 
+            //+ '">' 
             + '<div id="RemindMeLaterButton" class="T-I J-J5-Ji aFk T-I-ax7 ar7 T-I-JO hover-button" style="-webkit-user-select: none;">Remind Me Later</div></div>'
+            + '<div id="RemindMeLaterDialog" title="When would you like to be reminded?" style="text-align:center;">'
+            + '<input id="RemindMeLaterDateTimePicker" type="text">'
+            + '</div>'
         );
+        $("#RemindMeLaterDateTimePicker").datetimepicker({
+            lang: 'en',
+            roundTime: 'ceil',
+            step:30,
+            mask:true,
+            format: "Y/m/d H:i"
+        });
+        $("#RemindMeLaterDialog").dialog({ 
+            autoOpen: false,
+            modal: true,
+            minWidth: "350",
+            closeOnEscape: false,
+            buttons: [
+                { 
+                    id: "RemindMeLaterDialogSubmitButton",
+                    text: "Schedule Reminder",
+                    click: submitRemindMeLaterDialog
+                },
+                {
+                    id: "RemindMeLaterDialogCancelButton",
+                    text: "Cancel",
+                    click: function() { $(this).dialog("close");}
+                }
+            ]
+        });
     });
 };
 
@@ -75,25 +138,7 @@ $(document).on({
 
 //Listener's for the new buttons
 $(document).on("click", "#RemindMeLaterButton", function(){
-    $.ajax({
-        url: config.url + config.remind,
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            "key": userDataItem.user.key,
-            "time": $("#RemindTime").val(),
-            "subject": $("h2.hP").text()
-            //TODO make this more robust query for greater accuracy and specificity -- select with greater fieldset then just "subject"
-        }, 
-        success: function(data, status, xhr) {
-            //TODO handle prettier and also archive message in mean time
-            alert("Scheduled!");
-        },
-        error: function(xhr, status, code) {
-            alert('There was an error scheduling your reminder: '+
-                (xhr.responseText || code));
-        }
-    });
+    $("#RemindMeLaterDialog").dialog("open");
 });
 $(document).on("click", "#SendLaterButton", function(){
     //TODO support multiple recipients
