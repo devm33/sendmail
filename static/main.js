@@ -48,7 +48,7 @@ var populateEmailForm = function(obj) {
         }
     });
     $('#datetimepick').datetimepicker({
-                value: compose_els['time'].val() == ""?"    /  /     :  ":compose_els['time'].val().replace(/-/g, '/').replace('T', ' ').substring(0, 16)
+        value: compose_els['time'].val() == ""?"    /  /     :  ":compose_els['time'].val().replace(/-/g, '/').replace('T', ' ').substring(0, 16)
     });
 
 };
@@ -256,7 +256,7 @@ $(document).ready(function(){
         .on('click', '#switch-view .btn', switchView)
         .on('click', '.delete', deleteMail)
         .on('click', '.edit', editMail);
-        $('body').on('click', '#error-bar', function(){$(this).remove();});
+    $('body').on('click', '#error-bar', function(){$(this).remove();});
     
     /* Callback for profile data, will pull until it gets it */
     loadProfile();
