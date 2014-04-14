@@ -255,7 +255,7 @@ $(document).ready(function(){
         .on('click', '.edit', editMail)
         .on('change', '#time', function(){
             $('#datetimepick').datetimepicker({
-                value: $('#time').val().replace(/-/g, '/').replace('T', ' ').substring(0, 16)
+                value: $('#time').val() == ""?"    /  /     :  ":$('#time').val().replace(/-/g, '/').replace('T', ' ').substring(0, 16)
             });
         });
     $('body').on('click', '#error-bar', function(){$(this).remove();});
