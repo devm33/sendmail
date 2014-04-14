@@ -1,0 +1,6 @@
+.ui-dialog-title, .ui-dialog-buttonset .ui-button{
+    font-size:75%;
+}
+.ui-icon-spinner{
+    background-image: url("chrome-extension://__MSG_@@extension_id__/src/inject/ajax-loader.gif") !important;
+}
