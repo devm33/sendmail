@@ -47,7 +47,10 @@ var populateEmailForm = function(obj) {
             compose_els[key].val(val);
         }
     });
-    $('#time').change();
+    $('#datetimepick').datetimepicker({
+                value: $('#time').val() == ""?"    /  /     :  ":$('#time').val().replace(/-/g, '/').replace('T', ' ').substring(0, 16)
+    });
+
 };
 
 var clearEmailForm = function() {
@@ -252,13 +255,8 @@ $(document).ready(function(){
         .on('submit', '#compose', submitEmailForm)
         .on('click', '#switch-view .btn', switchView)
         .on('click', '.delete', deleteMail)
-        .on('click', '.edit', editMail)
-        .on('change', '#time', function(){
-            $('#datetimepick').datetimepicker({
-                value: $('#time').val() == ""?"    /  /     :  ":$('#time').val().replace(/-/g, '/').replace('T', ' ').substring(0, 16)
-            });
-        });
-    $('body').on('click', '#error-bar', function(){$(this).remove();});
+        .on('click', '.edit', editMail);
+        $('body').on('click', '#error-bar', function(){$(this).remove();});
     
     /* Callback for profile data, will pull until it gets it */
     loadProfile();
