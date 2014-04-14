@@ -47,6 +47,10 @@ var populateEmailForm = function(obj) {
             compose_els[key].val(val);
         }
     });
+    $('#datetimepick').datetimepicker({
+        value: compose_els['time'].val() == ""?"    /  /     :  ":compose_els['time'].val().replace(/-/g, '/').replace('T', ' ').substring(0, 16)
+    });
+
 };
 
 var clearEmailForm = function() {
@@ -54,8 +58,8 @@ var clearEmailForm = function() {
         'to': '',
         'id': '',
         'body': '',
-        'time': (new Date()).toJSON().slice(0,-5),
-        'subject': 'New Message'
+        'time': '',
+        'subject': ''
     });
 };
 
@@ -235,7 +239,17 @@ $(document).ready(function(){
         'subject': $('#subject'),
         'compose': $('#compose')
     };
-
+    $('#datetimepick').datetimepicker({
+        lang: 'en',
+        step: 30,
+        mask: true,
+        format: "Y/m/d H:i",
+        minDate:0,
+        minTime:0,
+        onChangeDateTime:function(dp,$input){
+            compose_els['time'].val($input.val().replace(/\//g, '-').replace(' ', 'T').concat(":00"));
+        }
+    });
     /* Bind listeners here */
     $('#container').on('click', '#logout', logOut)
         .on('submit', '#compose', submitEmailForm)
