@@ -75,8 +75,7 @@ app.get('/', function(req, res){
         opts.err = "There was an error logging in";
     } else if(req.session.authenticated) {
         template = 'main';
-        opts = {'loading': req.session.loading,
-            'now': (new Date()).toJSON().slice(0,-5) };
+        opts = {'loading': req.session.loading};
     }
     res.render(template, opts);
 });
