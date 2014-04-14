@@ -59,7 +59,7 @@ var clearEmailForm = function() {
         'id': '',
         'body': '',
         'time': '',
-        'subject': 'New Message'
+        'subject': ''
     });
 };
 
