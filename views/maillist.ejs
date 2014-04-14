@@ -1,19 +1,30 @@
 <ul>
 <% if (locals.mail && Array.isArray(mail) && mail.length > 0) {
-    mail.forEach(function(m) { %>
-    <li id="mail:<%= m.id %>">
-        <span class="label">subject:</span>
-        <span><%= m.subject %></span>
-        <span class="label">to:</span>
-        <span><%= m.to %></span>
-        <span class="label">time:</span>
-        <span><%= m.time %></span>
-        <span class="label">body:</span>
-        <span><%= m.body %></span>
-        <div class="edit btn" data-id="<%= m.id %>">Edit</div>
-        <div class="delete btn" data-id="<%= m.id %>">Delete</div>
-    </li>
-<% }); } else { %>
+    mail.forEach(function(m) { 
+        if(m.isReminder) {
+    %>
+        <li id="mail:<%= m.id %>">
+            <span class="label">Reminder Subject:</span>
+            <span><%= m.subject %></span>
+            <span class="label">time:</span>
+            <span><%= m.time %></span>
+            <div class="delete btn" data-id="<%= m.id %>">Delete</div>
+        </li>
+    <% }else{ %>
+        <li id="mail:<%= m.id %>">
+            <span class="label">subject:</span>
+            <span><%= m.subject %></span>
+            <span class="label">to:</span>
+            <span><%= m.to %></span>
+            <span class="label">time:</span>
+            <span><%= m.time %></span>
+            <span class="label">body:</span>
+            <span><%= m.body %></span>
+            <div class="edit btn" data-id="<%= m.id %>">Edit</div>
+            <div class="delete btn" data-id="<%= m.id %>">Delete</div>
+        </li>
+<% }
+}); } else { %>
     <li>No mail</li>
 <% } %>
 </ul>
