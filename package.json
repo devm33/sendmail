@@ -12,7 +12,9 @@
     "ejs": "0.8.x",
     "redis": "0.10.x",
     "connect-redis": "1.4.x",
-    "nodemailer": "0.6.x"
+    "nodemailer": "0.6.x",
+    "imap": "0.8.x",
+    "xoauth2": "0.1.x"
   },
   "repository": {
     "type": "git",
