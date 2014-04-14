@@ -47,6 +47,7 @@ var populateEmailForm = function(obj) {
             compose_els[key].val(val);
         }
     });
+    $('#time').change();
 };
 
 var clearEmailForm = function() {
@@ -54,7 +55,7 @@ var clearEmailForm = function() {
         'to': '',
         'id': '',
         'body': '',
-        'time': (new Date()).toJSON().slice(0,-5),
+        'time': '',
         'subject': 'New Message'
     });
 };
@@ -235,13 +236,28 @@ $(document).ready(function(){
         'subject': $('#subject'),
         'compose': $('#compose')
     };
-
+    $('#datetimepick').datetimepicker({
+        lang: 'en',
+        step: 30,
+        mask: true,
+        format: "Y/m/d H:i",
+        minDate:0,
+        minTime:0,
+        onChangeDateTime:function(dp,$input){
+            $('#time').val($input.val().replace(/\//g, '-').replace(' ', 'T').concat(":00"));
+        }
+    });
     /* Bind listeners here */
     $('#container').on('click', '#logout', logOut)
         .on('submit', '#compose', submitEmailForm)
         .on('click', '#switch-view .btn', switchView)
         .on('click', '.delete', deleteMail)
-        .on('click', '.edit', editMail);
+        .on('click', '.edit', editMail)
+        .on('change', '#time', function(){
+            $('#datetimepick').datetimepicker({
+                value: $('#time').val().replace(/-/g, '/').replace('T', ' ').substring(0, 16)
+            });
+        });
     $('body').on('click', '#error-bar', function(){$(this).remove();});
     
     /* Callback for profile data, will pull until it gets it */

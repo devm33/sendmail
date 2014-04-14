@@ -21,9 +21,11 @@
         <input id="from" name="from" />
         <label for="body">Body:</label>
         <textarea id="body" name="body"></textarea>
-        <% //todo schedule gui needs help /this whole form needs help %>
-        <label for="time">When:</label>
-        <input id="time" name="time" type="datetime" value="<%= now %>" /><%/* TODO make a lot nicer */%>
+        <%/*todo schedule gui needs help /this whole form needs help */%>
+        
+        <input id="time" name="time" type="datetime" style="display:none;"/><%/* TODO make a lot nicer */%>
+        <label for="datetimepick">When:</label>
+        <input id="datetimepick" name="datetimepick" type="text"/>
         <input id="id" name="id" type="hidden" value="" />
         <input type="submit" id="schedule" class="btn right" value="Submit" />
     </form>
@@ -33,8 +35,8 @@
     </div>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js">
-</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="jquery.datetimepicker.js"></script>
 <script src="/lodash.custom.min.js"></script>
 <script src="/ejs.min.js"></script>
 <script src="/main.js"></script> <%/* TODO min & concat js for prod */%>
