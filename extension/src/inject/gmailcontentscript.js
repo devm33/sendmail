@@ -16,8 +16,8 @@ var submitRemindMeLaterDialog = function(){
         data: {
             "key": userDataItem.user.key,
             "time": dateTimeField.val().replace(/\//g, '-').replace(' ', 'T').concat(':00'), 
-            "subject": $("h2.hP").text()
-            //TODO make this more robust query for greater accuracy and specificity -- select with greater fieldset then just "subject"
+            "gmid": window.location.href.split("/").pop() 
+            //it seems as if the gmail id is always the last element in the URL. should probably be careful with that assumption, maybe parsing this a little more robustly, but haven't been able to find a case where this isn't true
         }, 
         success: function(data, status, xhr) {
             //TODO handle prettier and also archive message in mean time
