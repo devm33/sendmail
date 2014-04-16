@@ -6,6 +6,16 @@ var submitRemindMeLaterDialog = function(){
     var cancelButton = $("#RemindMeLaterDialogCancelButton");
     var dateTimeField = $("#RemindMeLaterDateTimePicker");
     var dialog = $("#RemindMeLaterDialog");
+    var dateTime;
+    try{
+        //sets the hidden form to UTC representation of selected time
+        //first parse date provided - this will be local time
+        //then convert this to ISO string which will be in UTC for the server
+        dateTime = (new Date(dateTimeField.val()).toISOString());
+    }catch(err){
+        //format wrong because either blank or user manipulated
+        dateTime = "";
+    }
     submitButton.button("option", "disabled", true).button("option", "label", "Please Wait...").button("option", "icons", { primary: "ui-icon-spinner", secondary: null });
     cancelButton.button("option", "disabled", true);
     dateTimeField.prop("disabled", true);
@@ -15,7 +25,7 @@ var submitRemindMeLaterDialog = function(){
         dataType: 'json',
         data: {
             "key": userDataItem.user.key,
-            "time": dateTimeField.val().replace(/\//g, '-').replace(' ', 'T').concat(':00'), 
+            "time": dateTime, 
             "gmid": window.location.href.split("/").pop() 
             //it seems as if the gmail id is always the last element in the URL. should probably be careful with that assumption, maybe parsing this a little more robustly, but haven't been able to find a case where this isn't true
         }, 
