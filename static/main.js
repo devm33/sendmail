@@ -47,8 +47,30 @@ var populateEmailForm = function(obj) {
             compose_els[key].val(val);
         }
     });
+    //sets the value of the datetimepicker based on the UTC value of hidden field
+    //get value form element
+    var dateString;
+    var dateValue = compose_els['time'].val();
+    if(dateValue == ""){
+        dateString = "    /  /     :  ";
+    }
+    else{
+        //create date object from UTC - ISO string format ensures parsed as UTC
+        var date = new Date(dateValue);
+        //make some changes, since we need leading zeros
+        var month = date.getMonth();
+        month = (month<10)?("0"+(month+1)):(month+1);
+        var day = date.getDate();
+        day = (day<10)?("0"+day):day;
+        var hours = date.getHours();
+        hours = (hours<10)?("0"+hours):hours;
+        var minutes = date.getMinutes();
+        minutes = (minutes<10)?("0"+minutes):minutes;
+        //then contruct string from value - the conversion happens here since functions used return local time
+        dateString = date.getFullYear() + "/" + month + "/" + day + " " + hours + ":" + minutes;
+    }
     $('#datetimepick').datetimepicker({
-        value: compose_els['time'].val() == ""?"    /  /     :  ":compose_els['time'].val().replace(/-/g, '/').replace('T', ' ').substring(0, 16)
+        value: dateString
     });
 
 };
@@ -247,7 +269,10 @@ $(document).ready(function(){
         minDate:0,
         minTime:0,
         onChangeDateTime:function(dp,$input){
-            compose_els['time'].val($input.val().replace(/\//g, '-').replace(' ', 'T').concat(":00"));
+            //sets the hidden form to UTC representation of selected time
+            //first parse date provided - this will be local time
+            //then convert this to ISO string which will be in UTC for the server
+            compose_els['time'].val(new Date($input.val()).toISOString());
         }
     });
     /* Bind listeners here */
