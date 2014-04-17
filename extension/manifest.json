@@ -25,8 +25,15 @@
             "js": [
                 "src/libs/mutation-summary.js",
                 "src/libs/jquery-2.1.0.min.js",
+                "src/libs/jquery-ui-1.10.4.custom.min.js",
+                "src/libs/jquery.datetimepicker.js",
                 "/config.js",
                 "src/inject/gmailcontentscript.js"
+            ],
+            "css": [
+                "src/libs/jquery-ui-1.10.4.custom.min.css",
+                "src/libs/jquery.datetimepicker.css",
+                "src/inject/gmailcontentscript.css"
             ]
         },
         {
@@ -41,5 +48,9 @@
             ],
             "run_at": "document_end"
         }
+    ],
+    "web_accessible_resources": [
+        "src/libs/images/*",
+        "src/inject/ajax-loader.gif"
     ]
 }
