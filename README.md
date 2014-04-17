@@ -52,7 +52,7 @@ Once there, you will be presented with two options:
     2. Download the Chrome Extension
 
 Website:
-* Sign in with Google will take you to the main page of the website.
+* "Sign in with Google" will take you to the main page of the website.
 * After you sign in, you will be presented with a standard form in which you can compose an email message to be sent at a later time. 
 * At the top of the page, you will also see a toggle button to change between the "Compose" screen and "Scheduled" screen. 
 * The "Scheduled" screen presents you with a list of all scheduled events (both messages to be sent from both the website and the extension and reminders set up from within the extension.
