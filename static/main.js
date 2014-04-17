@@ -326,6 +326,12 @@ $(document).ready(function(){
     /* Callback for profile data, will pull until it gets it */
     loadProfile();
     /* TODO load profile conditionally, get stuff passed in from node */
+
+    /*intepret hash fragment*/
+    if(window.location.hash && window.location.hash === "#maillist"){
+        $("#view-list").click();
+        window.location.hash = "";
+    }
 });
 
 /* Var declarations initialized on ready */
