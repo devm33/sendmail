@@ -47,6 +47,7 @@ User Manual
 -----------
 Navigate to https://sendmail4911.herokuapp.com to see a live version of SendMail.
 Once there, you will be presented with two options:
+
     1. Signin with Google
     2. Download the Chrome Extension
 
