@@ -33,7 +33,7 @@
             "css": [
                 "src/libs/jquery-ui-1.10.4.custom.min.css",
                 "src/libs/jquery.datetimepicker.css",
-                "src/inject/gmailcontentscript.css"
+                "src/inject/customjqueryuistyles.css"
             ]
         },
         {
@@ -43,8 +43,13 @@
             ],
             "js": [
                 "src/libs/jquery-2.1.0.min.js",
+                "src/libs/jquery-ui-1.10.4.custom.min.js",
                 "src/libs/mutation-summary.js",
                 "src/inject/sendmailcontentscript.js"
+            ],
+            "css": [
+                "src/libs/jquery-ui-1.10.4.custom.min.css",
+                "src/inject/customjqueryuistyles.css"
             ],
             "run_at": "document_end"
         }

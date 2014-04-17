@@ -1,6 +1,11 @@
+/* jQuery UI Classes */
 .ui-dialog-title, .ui-dialog-buttonset .ui-button{
     font-size:65%;
 }
 .ui-icon-spinner{
     background-image: url("chrome-extension://__MSG_@@extension_id__/src/inject/ajax-loader.gif") !important;
+}
+/* My Helper Classes */
+.smaller-dialog-content{
+    font-size:65%;
 }

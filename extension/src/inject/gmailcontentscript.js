@@ -36,7 +36,7 @@ var initDialog = function($dialog, submitButtonId, cancelButtonId, submitClickLi
     $dialog.dialog({ 
         autoOpen: false,
         modal: true,
-        minWidth: "350",
+        minWidth: 350,
         closeOnEscape: false,
         buttons: [
             { 
