@@ -33,7 +33,7 @@ $("body").append("<div id='ExtensionDialog'><div class='smaller-dialog-content'>
 $("#ExtensionDialog").dialog({
     autoOpen: false,
     modal: true,
-    minWidth: 375,
+    minWidth: 400,
     buttons: [
         {
             text: "Proceed to GMail.com",
