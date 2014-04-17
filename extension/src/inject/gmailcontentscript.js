@@ -36,7 +36,7 @@ var initDialog = function($dialog, submitButtonId, cancelButtonId, submitClickLi
     $dialog.dialog({ 
         autoOpen: false,
         modal: true,
-        minWidth: "350",
+        minWidth: 350,
         closeOnEscape: false,
         buttons: [
             { 
@@ -126,7 +126,8 @@ var submitRemindMeLaterDialog = function(){
         data: {
             "key": userDataItem.user.key,
             "time": dateTime, 
-            "gmid": window.location.href.split("/").pop() 
+            "gmid": window.location.href.split("/").pop(),
+            "subject": $("h2.hP").text()
             //it seems as if the gmail id is always the last element in the URL. should probably be careful with that assumption, maybe parsing this a little more robustly, but haven't been able to find a case where this isn't true
         }, 
         success: function(data, status, xhr) {

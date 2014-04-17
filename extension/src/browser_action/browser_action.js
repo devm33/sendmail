@@ -19,4 +19,10 @@ $(document).ready(function(){
         /*sign in yo!*/
         chrome.tabs.create({'url':config.url + config.extensionauth});
     });
+    $("#GmailLink").on("click", function(){
+        chrome.tabs.create({'url':"https://mail.google.com"});
+    });
+    $("#SendMailLink").on("click", function(){
+        chrome.tabs.create({'url':config.url + config.maillist});
+    });
 });
