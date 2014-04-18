@@ -17,15 +17,13 @@
         <label for="subject">Subject:</label> 
         <input id="subject" name="subject" type="text"/>
         <label for="to">To:</label>
-        <input id="to" name="to" type="text" title="Separate addresses with spaces" /><%/* TODO make nicer */%>
+        <input id="to" name="to" type="text" class="tooltip" title="Separate addresses with commas" />
         <label for="from">From:</label>
         <input id="from" name="from" />
         <textarea id="body" name="body"></textarea>
-        <%/*todo schedule gui needs help /this whole form needs help */%>
-        
-        <input id="time" name="time" type="datetime" style="display:none;"/><%/* TODO make a lot nicer */%>
+        <input id="time" name="time" type="datetime" style="display:none;"/>
         <label for="datetimepick">Time to Send:</label>
-        <input id="datetimepick" name="datetimepick" type="text" title="Leave blank to Send Now"/>
+        <input id="datetimepick" name="datetimepick" type="text" class="tooltip" title="Leave blank to Send Now"/>
         <input id="id" name="id" type="hidden" value="" />
         <input type="submit" id="schedule" class="btn right" value="Submit" />
     </form>
