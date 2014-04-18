@@ -48,14 +48,14 @@ User Manual
 Navigate to https://sendmail4911.herokuapp.com to see a live version of SendMail.
 Once there, you will be presented with two options:
 
-    1. Signin with Google
-    2. Download the Chrome Extension
+1. Signin with Google
+2. Download the Chrome Extension
 
 Website:
 * "Sign in with Google" will take you to the main page of the website.
 * After you sign in, you will be presented with a standard form in which you can compose an email message to be sent at a later time. 
 * At the top of the page, you will also see a toggle button to change between the "Compose" screen and "Scheduled" screen. 
-* The "Scheduled" screen presents you with a list of all scheduled events (both messages to be sent from both the website and the extension and reminders set up from within the extension.
+* The "Scheduled" screen presents you with a list of all scheduled events.
 * You can click "edit" or "delete" to change any scheduled items.
 
 Chrome Extension:
