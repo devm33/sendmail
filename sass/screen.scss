@@ -2,6 +2,7 @@
 @import "compass/utilities";
 @import "compass/css3";
 @import "compass/css3/user-interface";
+@import "compass/css3/transform";
 
 body {
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
@@ -119,8 +120,9 @@ body {
     a.github-fork {
         position: absolute;
         top: 0;
-        right: 0;
+        left: 0;
         border: 0;
+        @include rotate(-90deg);
     }
     #error-bar {
         width: 100%;
@@ -144,6 +146,21 @@ body {
             float: left;
             margin-right: 0.5em;
         }
+    }
+    ul.list{
+        list-style-type: disc; 
+        list-style-position: inside; 
+    }
+    ol.list{
+        list-style-type: decimal; 
+        list-style-position: inside; 
+    }
+    #Help{
+        padding: 5px 5px 0 0;
+        cursor: pointer;
+    }
+    .ui-tooltip{
+        max-width: 400px;
     }
 }
 
