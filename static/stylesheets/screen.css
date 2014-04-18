@@ -1,1 +1,303 @@
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font:inherit;font-size:100%;vertical-align:baseline}html{line-height:1}ol,ul{list-style:none}table{border-collapse:collapse;border-spacing:0}caption,th,td{text-align:left;font-weight:normal;vertical-align:middle}q,blockquote{quotes:none}q:before,q:after,blockquote:before,blockquote:after{content:"";content:none}a img{border:none}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary{display:block}body{font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;font-weight:300;font-size:12pt;line-height:15pt;-webkit-font-smoothing:antialiased}body div.lightbox{position:absolute;top:0;bottom:0;right:0;left:0;background-color:#ccc;background-color:rgba(120,120,120,0.5)}body div.lightbox div.content{display:block;max-width:500px;margin:20px auto;padding:5px;background-color:#fff;-webkit-border-radius:10px;-moz-border-radius:10px;-ms-border-radius:10px;-o-border-radius:10px;border-radius:10px}body div.lightbox div.content img.image128{display:block;width:128px;height:128px;margin:0 auto}body div.lightbox div.content p{font-size:1.5em;font-style:italic;text-align:center}body #container{max-width:500px;margin:2em auto}body #container .btn{cursor:pointer;-webkit-user-select:none;-moz-user-select:none;user-select:none;outline:0;border:0;-webkit-border-radius:3px 3px;-moz-border-radius:3px / 3px;border-radius:3px / 3px;padding:0 20px;line-height:31px;height:31px;font-weight:bold;white-space:nowrap;-webkit-box-shadow:rgba(0,0,0,0.1) 0 1px 0;-moz-box-shadow:rgba(0,0,0,0.1) 0 1px 0;box-shadow:rgba(0,0,0,0.1) 0 1px 0;background-color:#394bdd;font-family:Roboto,arial,sans-serif;font-size:13px;color:#fff;display:-moz-inline-stack;display:inline-block;vertical-align:middle;*vertical-align:auto;zoom:1;*display:inline;margin-bottom:1em}body #container .btn:hover{-webkit-box-shadow:rgba(0,0,0,0.2) 0 -2px 0 inset;-moz-box-shadow:rgba(0,0,0,0.2) 0 -2px 0 inset;box-shadow:rgba(0,0,0,0.2) 0 -2px 0 inset;background-color:#394bdd}body #container .btn:active{-webkit-box-shadow:rgba(0,0,0,0.2) 0 2px 0 inset;-moz-box-shadow:rgba(0,0,0,0.2) 0 2px 0 inset;box-shadow:rgba(0,0,0,0.2) 0 2px 0 inset;background-color:#2e3ebe}body #container .btn.selected{background-color:#ccc}body #container .btn.delete{background-color:#d23}body #container #signinButton{background-color:#dd4b39}body #container #signinButton:hover{-webkit-box-shadow:rgba(0,0,0,0.2) 0 -2px 0 inset;-moz-box-shadow:rgba(0,0,0,0.2) 0 -2px 0 inset;box-shadow:rgba(0,0,0,0.2) 0 -2px 0 inset;background-color:#dd4b39}body #container #signinButton:active{-webkit-box-shadow:rgba(0,0,0,0.2) 0 2px 0 inset;-moz-box-shadow:rgba(0,0,0,0.2) 0 2px 0 inset;box-shadow:rgba(0,0,0,0.2) 0 2px 0 inset;background-color:#be3e2e}body #container p{margin-bottom:0.5em;display:-moz-inline-stack;display:inline-block;vertical-align:middle;*vertical-align:auto;zoom:1;*display:inline}body #container h1{font-size:2em}body #container #header-icon{width:64px;height:64px;background:no-repeat url(/sendmail-64.png)}body #container img.face-circle{-webkit-border-radius:50%;-moz-border-radius:50%;-ms-border-radius:50%;-o-border-radius:50%;border-radius:50%;margin-right:0.5em}body #container #header-bar{overflow:auto}body #container #header-bar .right *,body #container #header-bar .left *,body #container #header-bar .wrap{display:inline-block;vertical-align:middle}body #container #header-bar .wrap{width:49%}body a.github-fork{position:absolute;top:0;right:0;border:0}body #error-bar{width:100%;font-weight:bold;line-height:2em;background-color:#d00}body #error-bar.success{background-color:#0d0}body #compose input,body #compose textarea{display:block;margin-bottom:1em}body #compose textarea{width:100%;height:300px}body #compose label{float:left;margin-right:0.5em}.left{float:left}.right{float:right}.clear{float:none;clear:both}
+/* line 17, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 7, ../../sass/screen.scss */
+body {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 12pt;
+  line-height: 15pt;
+  -webkit-font-smoothing: antialiased;
+}
+/* line 13, ../../sass/screen.scss */
+body div.lightbox {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #ccc;
+  background-color: rgba(120, 120, 120, 0.5);
+}
+/* line 21, ../../sass/screen.scss */
+body div.lightbox div.content {
+  display: block;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 5px;
+  background-color: #fff;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+}
+/* line 28, ../../sass/screen.scss */
+body div.lightbox div.content img.image128 {
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin: 0 auto;
+}
+/* line 34, ../../sass/screen.scss */
+body div.lightbox div.content p {
+  font-size: 1.5em;
+  font-style: italic;
+  text-align: center;
+}
+/* line 41, ../../sass/screen.scss */
+body #container {
+  max-width: 500px;
+  margin: 2em auto;
+}
+/* line 46, ../../sass/screen.scss */
+body #container .btn {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  outline: 0;
+  border: 0;
+  -webkit-border-radius: 3px 3px;
+  -moz-border-radius: 3px / 3px;
+  border-radius: 3px / 3px;
+  padding: 0 20px;
+  line-height: 31px;
+  height: 31px;
+  font-weight: bold;
+  white-space: nowrap;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 1px 0;
+  -moz-box-shadow: rgba(0, 0, 0, 0.1) 0 1px 0;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 1px 0;
+  background-color: #394bdd;
+  font-family: Roboto,arial,sans-serif;
+  font-size: 13px;
+  color: #fff;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  margin-bottom: 1em;
+  /* currently using this for compose/view switch */
+}
+/* line 59, ../../sass/screen.scss */
+body #container .btn:hover {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 -2px 0 inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -2px 0 inset;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -2px 0 inset;
+  background-color: #394bdd;
+}
+/* line 63, ../../sass/screen.scss */
+body #container .btn:active {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 0 inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 0 inset;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 0 inset;
+  background-color: #2e3ebe;
+}
+/* line 74, ../../sass/screen.scss */
+body #container .btn.selected {
+  background-color: #ccc;
+}
+/* line 77, ../../sass/screen.scss */
+body #container .btn.delete {
+  background-color: #d23;
+}
+/* line 82, ../../sass/screen.scss */
+body #container #signinButton {
+  background-color: #dd4b39;
+}
+/* line 84, ../../sass/screen.scss */
+body #container #signinButton:hover {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 -2px 0 inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -2px 0 inset;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -2px 0 inset;
+  background-color: #dd4b39;
+}
+/* line 88, ../../sass/screen.scss */
+body #container #signinButton:active {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 0 inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 0 inset;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 0 inset;
+  background-color: #be3e2e;
+}
+/* line 93, ../../sass/screen.scss */
+body #container p {
+  margin-bottom: 0.5em;
+  /* stupid simple spacing */
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+}
+/* line 97, ../../sass/screen.scss */
+body #container h1 {
+  font-size: 2em;
+}
+/* line 100, ../../sass/screen.scss */
+body #container #header-icon {
+  width: 64px;
+  height: 64px;
+  background: no-repeat url(/sendmail-64.png);
+}
+/* line 105, ../../sass/screen.scss */
+body #container img.face-circle {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  margin-right: 0.5em;
+}
+/* line 109, ../../sass/screen.scss */
+body #container #header-bar {
+  overflow: auto;
+}
+/* line 111, ../../sass/screen.scss */
+body #container #header-bar .right *, body #container #header-bar .left *, body #container #header-bar .wrap {
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 115, ../../sass/screen.scss */
+body #container #header-bar .wrap {
+  width: 49%;
+  /* because css :P */
+}
+/* line 120, ../../sass/screen.scss */
+body a.github-fork {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+/* line 127, ../../sass/screen.scss */
+body #error-bar {
+  width: 100%;
+  font-weight: bold;
+  line-height: 2em;
+  background-color: #d00;
+}
+/* line 132, ../../sass/screen.scss */
+body #error-bar.success {
+  background-color: #0d0;
+}
+/* line 137, ../../sass/screen.scss */
+body #compose input, body #compose textarea {
+  display: block;
+  margin-bottom: 1em;
+}
+/* line 141, ../../sass/screen.scss */
+body #compose textarea {
+  width: 100%;
+  height: 300px;
+}
+/* line 145, ../../sass/screen.scss */
+body #compose label {
+  float: left;
+  margin-right: 0.5em;
+}
+/* line 150, ../../sass/screen.scss */
+body ul.list {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+/* line 154, ../../sass/screen.scss */
+body ol.list {
+  list-style-type: decimal;
+  list-style-position: inside;
+}
+/* line 158, ../../sass/screen.scss */
+body #Help {
+  padding: 5px 5px 0 0;
+}
+/* line 161, ../../sass/screen.scss */
+body .ui-tooltip {
+  max-width: 400px;
+}
+
+/* util type things */
+/* line 167, ../../sass/screen.scss */
+.left {
+  float: left;
+}
+
+/* line 170, ../../sass/screen.scss */
+.right {
+  float: right;
+}
+
+/* line 173, ../../sass/screen.scss */
+.clear {
+  float: none;
+  clear: both;
+}
