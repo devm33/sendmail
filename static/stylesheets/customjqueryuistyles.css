@@ -1,0 +1,8 @@
+/* jQuery UI Classes */
+.ui-dialog-title, .ui-dialog-buttonset .ui-button{
+    font-size:65%;
+}
+/* My Helper Classes */
+.smaller-content{
+    font-size:65%;
+}
