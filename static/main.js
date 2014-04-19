@@ -61,10 +61,10 @@ var transferDateToHiddenField = function($input){
             //sets the hidden form to UTC representation of selected time
             //first parse date provided - this will be local time
             //then convert this to ISO string which will be in UTC for the server
-            compose_els['time'].val(new Date($input.val()).toISOString());
+            compose_els.time.val(new Date($input.val()).toISOString());
         }catch(err){
             //format wrong because either blank or user manipulated
-            compose_els['time'].val("");
+            compose_els.time.val("");
         }
     }
 
@@ -100,9 +100,9 @@ var populateEmailForm = function(obj) {
     //sets the value of the datetimepicker based on the UTC value of hidden field
     //get value form element
     var dateString;
-    var dateValue = compose_els['time'].val();
+    var dateValue = compose_els.time.val();
     $picker.datetimepicker('destroy');
-    if(dateValue == ""){
+    if(dateValue === ""){
         //recreate picker
         $picker.val("");
         initDateTimePicker($picker);
