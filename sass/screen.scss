@@ -100,8 +100,9 @@ body {
                     background-color: #eee;
                 }
                 .summary {
+                    white-space: nowrap;
                     overflow: hidden;
-                    width: 69%;
+                    width: 69%; /* TODO not responsive */
                     height: 31px;
                     line-height: 31px;
                     @include inline-block;
