@@ -273,7 +273,7 @@ var showList = function() {
     var done_func = function() {
         if(!_.isEqual(mail_list, mail_list_updated)) {
             mail_list = mail_list_updated;
-            list.remove('ul');
+            list.find('ul').remove();
             list.prepend(ejs.render(mail_list_template, {'mail':mail_list}));
         }
         list_loading.hide();
