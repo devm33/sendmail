@@ -126,6 +126,14 @@ var populateEmailForm = function(obj) {
     }
 };
 
+var serializeEmailForm = function() {
+    var ret = {};
+    $.each(compose_els, function(key, val) {
+        ret[key] = val.val();
+    });
+    return ret;
+};
+
 var clearEmailForm = function() {
     populateEmailForm({
         'to': '',
@@ -147,7 +155,7 @@ var submitEmailForm = function(event){
         url: '/schedule',
         type: 'POST',
         dataType: 'json',
-        data: $('#compose').serialize(),
+        data: serializeEmailForm(),
         success: function(data, status, xhr) {
             showSuccessBar('E-mail successfully scheduled.', 2);
             clearEmailForm();
@@ -181,9 +189,9 @@ var showSuccessBar = function(msg, wait) {
 
 var showLoadBox = function(msg) {
     var box = $('<div class="lightbox"><div class="content">'+
-        '<img class="loading128" src="/sendmail-loading-128-opt.gif" alt="loading" />'+
+        '<img class="image128" src="/sendmail-loading-128-opt.gif" alt="loading" />'+
         '<p>'+(msg || 'Loading...')+'</p>'+
-    '</div></div>');
+    '</div></div>'); /* TODO this should be a template */
     box.appendTo('body');
     return box;
 };
@@ -198,55 +206,6 @@ var standardErrorFn = function(msg, time) {
             (xhr.responseJSON.message || xhr.responseText || status) +
             '. Try again?', time);
     };
-};
-
-var switchView = function() {
-    if($(this).hasClass('selected')) {
-        return;
-    }
-    view_compose.toggleClass('selected');
-    view_list.toggleClass('selected');
-    compose.toggle();
-    list.toggle();
-    if(view_list.hasClass('selected')) {
-        /* Re-add loading element if not there */
-        if(!list_loading_text.parent()) {
-            list.append(list_loading_text);
-        }
-        var mail_req = {
-            url: '/mailforuser',
-            type: 'GET',
-            dataType: 'json',
-            success: function(data, status, xhr) {
-                mail_list_updated = data;
-            },
-            error: standardErrorFn('fetching your scheduled mail', 3)
-        };
-        var done_func = function() {
-            if(!_.isEqual(mail_list, mail_list_updated)) {
-                mail_list = mail_list_updated;
-                list.html(ejs.render(mail_list_template, {'mail':mail_list}));
-            }
-            list_loading_text.remove();
-        };
-        if(!mail_list_template) {
-            var template_req = {
-                url: '/views/maillist.ejs',
-                type: 'GET',
-                success: function(data, status, xhr) {
-                    mail_list_template = data;
-                },
-                error: standardErrorFn('loading content', 3)
-            };
-            $.when($.ajax(mail_req), $.ajax(template_req)).done(done_func);
-        }
-        else {
-            $.ajax(mail_req).done(done_func);
-        }
-        /* TODO it'd be a decent win to have this check a last mod on
-         * the mail items from redis or something -- rather than using
-         * lodash to do some heavy, albeit nicely optimized, lifting */
-    }
 };
 
 var findMail = function(id, return_index) {
@@ -273,7 +232,7 @@ var editMail = function(){
     populateEmailForm(mail);
 
     /* Switch view to form */
-    view_compose.click();
+    window.location.hash = '#compose';
 };
 
 var deleteMail = function(){
@@ -296,6 +255,64 @@ var deleteMail = function(){
     });
 };
 
+var showList = function() {
+    view_list.addClass('selected');
+    view_compose.removeClass('selected');
+    list.show();
+    compose.hide();
+    list_loading.show();
+    var mail_req = {
+        url: '/mailforuser',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data, status, xhr) {
+            mail_list_updated = data;
+        },
+        error: standardErrorFn('fetching your scheduled mail', 3)
+    };
+    var done_func = function() {
+        if(!_.isEqual(mail_list, mail_list_updated)) {
+            mail_list = mail_list_updated;
+            list.remove('ul');
+            list.prepend(ejs.render(mail_list_template, {'mail':mail_list}));
+        }
+        list_loading.hide();
+    };
+    if(!mail_list_template) {
+        var template_req = {
+            url: '/views/maillist.ejs',
+            type: 'GET',
+            success: function(data, status, xhr) {
+                mail_list_template = data;
+            },
+            error: standardErrorFn('loading content', 3)
+        };
+        $.when($.ajax(mail_req), $.ajax(template_req)).done(done_func);
+    }
+    else {
+        $.ajax(mail_req).done(done_func);
+    }
+    /* TODO it'd be a decent win to have this check a last mod on
+     * the mail items from redis or something -- rather than using
+     * lodash to do some heavy, albeit nicely optimized, lifting */
+};
+
+var showCompose = function() {
+    view_compose.addClass('selected');
+    view_list.removeClass('selected');
+    compose.show();
+    list.hide();
+};
+
+var hashChange = function(e) {
+    if(window.location.hash == '#compose' || !window.location.hash) { /* currently compose default */
+        showCompose();
+    }
+    else {  
+        showList();
+    }
+};
+
 $(document).ready(function(){
     /* Reused elements (minimize dom queries)
      * note: declared in scope global to this module */
@@ -303,7 +320,7 @@ $(document).ready(function(){
     view_list = $('#view-list');
     compose = $('#compose');
     list = $('#list');
-    list_loading_text = $('#list-loading-text'); /* TODO maybe use a template and/or make prettier? */
+    list_loading = $('#list-loading'); /* TODO maybe use a template and/or make prettier? */
     compose_els = {
         'to': $('#to'),
         'id': $('#id'),
@@ -318,25 +335,24 @@ $(document).ready(function(){
     /* Bind listeners here */
     $('#container').on('click', '#logout', logOut)
         .on('submit', '#compose', submitEmailForm)
-        .on('click', '#switch-view .btn', switchView)
         .on('click', '.delete', deleteMail)
-        .on('click', '.edit', editMail);
+        .on('click', '.edit', editMail)
+        .on('click', '#view-list', showList)
+        .on('dblclick', '#view-compose', clearEmailForm);
     $('body').on('click', '#error-bar', function(){$(this).remove();});
+    $(window).on('hashchange', hashChange);
+
+    /* Call hash change on load to ensure correct view loaded if hash */
+    hashChange();
     
     /* Callback for profile data, will pull until it gets it */
     loadProfile();
     /* TODO load profile conditionally, get stuff passed in from node */
-
-    /*intepret hash fragment*/
-    if(window.location.hash && window.location.hash === "#maillist"){
-        $("#view-list").click();
-        window.location.hash = "";
-    }
 });
 
 /* Var declarations initialized on ready */
 /* dom vars */ var view_compose, view_list, compose, list,
-list_loading_text, compose_els, $picker;
+list_loading, compose_els, $picker;
 
 /* global vars */ var mail_list, mail_list_updated, mail_list_template;
 
