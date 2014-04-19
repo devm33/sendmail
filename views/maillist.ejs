@@ -4,25 +4,38 @@
     /* probably want to change date display to local time */
         if(m.isReminder) {
     %>
-        <li id="mail:<%= m.id %>">
-            <span class="label">Reminder Subject:</span>
-            <span><%= m.subject %></span>
-            <span class="label">time:</span>
-            <span><%= m.time %></span>
+        <li class="mail reminder collapsed" id="mail:<%= m.id %>">
+            <div class="summary">
+                <div class="label">REMINDER</div>
+                <div><%= m.subject %></div>
+            </div>
             <div class="delete btn" data-id="<%= m.id %>">Delete</div>
+            <div class="content">
+                <div class="label">SUBJECT</div>
+                <div><%= m.subject %></div>
+                <div class="label">TIME</div>
+                <div><%= new Date(m.time).toLocaleString() %></div>
+            </div>
         </li>
     <% }else{ %>
-        <li id="mail:<%= m.id %>">
-            <span class="label">subject:</span>
-            <span><%= m.subject %></span>
-            <span class="label">to:</span>
-            <span><%= m.to %></span>
-            <span class="label">time:</span>
-            <span><%= m.time %></span>
-            <span class="label">body:</span>
-            <span><%= m.body %></span>
+        <li class="mail collapsed" id="mail:<%= m.id %>">
+            <div class="summary">
+                <div><%= m.subject %></div>
+                <div class="label">TO</div>
+                <div><%= m.to %></div>
+            </div>
             <div class="edit btn" data-id="<%= m.id %>">Edit</div>
             <div class="delete btn" data-id="<%= m.id %>">Delete</div>
+            <div class="content">
+                <div class="label">SUBJECT</div>
+                <div><%= m.subject %></div>
+                <div class="label">TO</div>
+                <div><%= m.to %></div>
+                <div class="label">TIME</div>
+                <div><%= new Date(m.time).toLocaleString() %></div>
+                <div class="label">BODY</div>
+                <div><%- m.body %></div>
+            </div>
         </li>
 <% }
 }); } else { %>

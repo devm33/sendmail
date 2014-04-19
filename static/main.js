@@ -255,6 +255,11 @@ var deleteMail = function(){
     });
 };
 
+var toggleMail = function() {
+    /* called when a .summary or .content element is clicked on */
+    $(this).parent().toggleClass('collapsed');
+};
+
 var showList = function() {
     view_list.addClass('selected');
     view_compose.removeClass('selected');
@@ -338,7 +343,9 @@ $(document).ready(function(){
         .on('click', '.delete', deleteMail)
         .on('click', '.edit', editMail)
         .on('click', '#view-list', showList)
-        .on('dblclick', '#view-compose', clearEmailForm);
+        .on('dblclick', '#view-compose', clearEmailForm)
+        .on('click', '.summary', toggleMail)
+        .on('click', '.content', toggleMail);
     $('body').on('click', '#error-bar', function(){$(this).remove();});
     $(window).on('hashchange', hashChange);
 
