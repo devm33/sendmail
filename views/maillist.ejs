@@ -1,3 +1,13 @@
+<%
+function dateFormat(date_string) {
+    var d = new Date(date_string);
+    var r = d.getMonth()+'/'+d.getDate()+' '+d.toLocaleTimeString().slice(0,-6);
+    if(d.toLocaleTimeString().slice(-2) == 'PM') {
+        r += 'p';
+    }
+    return r;
+}
+%>
 <ul>
 <% if (locals.mail && Array.isArray(mail) && mail.length > 0) {
     mail.forEach(function(m) { 
@@ -7,6 +17,7 @@
         <li class="mail reminder collapsed" id="mail:<%= m.id %>">
             <div class="summary">
                 <div class="label">REMINDER</div>
+                <div class="label"><%= dateFormat(m.time) %></div>
                 <div><%= m.subject %></div>
             </div>
             <div class="delete btn" data-id="<%= m.id %>">Delete</div>
@@ -20,6 +31,7 @@
     <% }else{ %>
         <li class="mail collapsed" id="mail:<%= m.id %>">
             <div class="summary">
+                <div class="label"><%= dateFormat(m.time) %></div>
                 <div><%= m.subject %></div>
                 <div class="label">TO</div>
                 <div><%= m.to %></div>
