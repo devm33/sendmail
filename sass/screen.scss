@@ -3,6 +3,7 @@
 @import "compass/css3";
 @import "compass/css3/user-interface";
 @import "compass/css3/transform";
+@import "compass/layout/stretching";
 
 body {
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
@@ -74,6 +75,46 @@ body {
                 background-color: #d23;
             }
         }
+        #list {
+            li.mail {
+                .label {
+                    font-size: 0.7em;
+                    font-weight: 800;
+                    padding: 1px;
+                }
+                .content, .summary {
+                    cursor: pointer;
+                    margin-bottom: 1em;
+                    @include box-shadow(rgba(black, 0.1) 0 1px 0);
+                    &:hover {
+                        @include box-shadow(rgba(black, 0.2) 0 -2px 0 inset);
+                        background-color: #eee;
+                    }
+                    &:active {
+                        @include box-shadow(rgba(black, 0.2) 0 2px 0 inset);
+                    }
+                    @include user-select(none);
+                }
+                .content {
+                    display: block;
+                    background-color: #eee;
+                }
+                .summary {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    width: 69%; /* TODO not responsive */
+                    height: 31px;
+                    line-height: 31px;
+                    @include inline-block;
+                    div {
+                        @include inline-block;
+                    }
+                }
+            }
+            li.collapsed .content {
+                display: none;
+            }
+        }
         #switch-view {
             margin: auto;
             width: 211px; /* TODO fix hard-coding (is b/c of padding) */
@@ -86,7 +127,6 @@ body {
                         background-color: #ccc;
                     }
                 }
-                
             }
             #view-compose {
                 @include border-right-radius(0px);
