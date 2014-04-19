@@ -6,5 +6,5 @@ var config = {
     "extensionauth": "/extensionauth",
     "schedule": "/schedule",
     "remind": "/remind",
-    "maillist": "/#maillist"
+    "maillist": "/#list"
 };
