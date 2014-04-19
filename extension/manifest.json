@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "SendMail",
     "description": "Extension for SendMail services in Gmail",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "homepage_url": "http://sendmail4911.herokuapp.com",
     "icons": {
         "32": "icons/sendmail-32.png",
