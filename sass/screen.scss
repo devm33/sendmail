@@ -192,17 +192,28 @@ body {
         }
     }
     #compose {
-        input, textarea {
+        span.input-wrap {
             display: block;
+            overflow: hidden;
+        }
+        input, textarea {
             margin-bottom: 1em;
         }
+        input[type="text"],input[type="email"], textarea {
+            display: block;
+            width: 100%;
+            @include box-sizing(border-box);
+        }
         textarea {
-            width: 490px;
             height: 300px;
         }
         label {
             float: left;
             margin-right: 0.5em;
+        }
+        #from {
+            border: 0;
+            outline: 0;
         }
     }
     ul.list{
