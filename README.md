@@ -147,4 +147,5 @@ Thanks!
 
 ## License
 Copyright (c) 2014 Devraj Mehta, David Kearns, David Lee.
+
 Licensed under [the MIT license](https://github.com/devm33/sendmail/blob/master/LICENSE).
