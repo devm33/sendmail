@@ -165,7 +165,6 @@ body {
             margin-right: 0.5em;
         }
         #header-bar {
-            overflow: auto;
             .right *, .left *, .wrap {
                 display:inline-block;
                 vertical-align: middle;
@@ -197,10 +196,10 @@ body {
             overflow: hidden;
         }
         input, textarea {
+            display: block;
             margin-bottom: 1em;
         }
-        input[type="text"],input[type="email"], textarea {
-            display: block;
+        span.input-wrap input, textarea {
             width: 100%;
             @include box-sizing(border-box);
         }
