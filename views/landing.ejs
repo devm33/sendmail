@@ -3,11 +3,11 @@
 <% if (locals.err) { %>
 <div id="error-bar"><%= err %></div>
 <% } %>
-
+<% include help %>
 <div id="container">
     <% include headerbar %>
     <p>SendMail is intended for individuals trying automate their email usage we seek to provide a solution for scheduling message sending. Being able to precisely schedule email sending allows users to optimize timing for important messages, to effortlessly send out emails at pre-designated times, and to even send themselves reminders (such as re-sending themselves an email to review at a later time).</p>
-    <a href="/sendmail_extension.zip" class="btn left" title="Download the Chrome Extension" role="button" tabindex="1">Download the Chrome Extension</a>
+    <a href="https://chrome.google.com/webstore/detail/dnljffkjlnkgabakkicokgdfbbkegglf" class="btn left" title="Download the Chrome Extension" role="button" tabindex="1">Download the Chrome Extension</a>
     <a id="signinButton" class="btn right" title="Sign in with Google" role="button" tabindex="0"
     href="<%= gauth_url %>">
     Sign in with Google</a>

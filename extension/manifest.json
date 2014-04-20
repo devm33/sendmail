@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "SendMail",
     "description": "Extension for SendMail services in Gmail",
-    "version": "0.1",
+    "version": "1.0.2",
     "homepage_url": "http://sendmail4911.herokuapp.com",
     "icons": {
         "32": "icons/sendmail-32.png",
@@ -25,21 +25,37 @@
             "js": [
                 "src/libs/mutation-summary.js",
                 "src/libs/jquery-2.1.0.min.js",
+                "src/libs/jquery-ui-1.10.4.custom.min.js",
+                "src/libs/jquery.datetimepicker.js",
                 "/config.js",
                 "src/inject/gmailcontentscript.js"
+            ],
+            "css": [
+                "src/libs/jquery-ui-1.10.4.custom.min.css",
+                "src/libs/jquery.datetimepicker.css",
+                "src/inject/customjqueryuistyles.css"
             ]
         },
         {
             "matches": [
-                "https://sendmail4911.herokuapp.com/*",
+                "*://sendmail4911.herokuapp.com/*",
                 "*://localhost/*"
             ],
             "js": [
                 "src/libs/jquery-2.1.0.min.js",
+                "src/libs/jquery-ui-1.10.4.custom.min.js",
                 "src/libs/mutation-summary.js",
                 "src/inject/sendmailcontentscript.js"
             ],
+            "css": [
+                "src/libs/jquery-ui-1.10.4.custom.min.css",
+                "src/inject/customjqueryuistyles.css"
+            ],
             "run_at": "document_end"
         }
+    ],
+    "web_accessible_resources": [
+        "src/libs/images/*",
+        "src/inject/ajax-loader.gif"
     ]
 }
