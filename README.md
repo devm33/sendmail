@@ -97,21 +97,20 @@ GET to destroy any authenticated session associated with the access.
 
 1. On Heroku, [create an account](https://signup.heroku.com/signup/dc), [create a new app](https://dashboard.heroku.com/apps), and choose a redis add-on (I used [RedisToGo](https://addons.heroku.com/redistogo).
 2. [Get a Google app ID and secret](https://developers.google.com/accounts/docs/OAuth2Login#getcredentials) and save it in a file called `secrets.json` in your repo, formatted as such:
-```json
-{
-    "web": {
-        "client_id": "your-client-id",
-        "client_secret": "your-client-secret"
-    },
-    "cookie_pass": "optional-but-highly-recommended"
-}
-```
-(Pro-Tip: you can download a json file from the [Google developer console](https://console.developers.google.com/) after you get your client id which matches these criteria, plus a bunch of other stuff that's fine to have in there).
+   ```json
+   {
+       "web": {
+           "client_id": "your-client-id",
+           "client_secret": "your-client-secret"
+       },
+       "cookie_pass": "optional-but-highly-recommended"
+   }
+   ```
+  (Pro-Tip: you can download a json file from the [Google developer console](https://console.developers.google.com/) after you get your client id which matches these criteria, plus a bunch of other stuff that's fine to have in there).
 
-3. Clone this repo, add your `secrets.json` file and [add your Heroku project as a remote](https://devcenter.heroku.com/articles/git#creating-a-heroku-remote) then just use git to deploy
+3. Clone this repo, add your `secrets.json` file and [add your Heroku project as a remote](https://devcenter.heroku.com/articles/git#creating-a-heroku-remote) then just use git to deploy:
 
-   $ git push heroku master
-
+        $ git push heroku master
 
 #### Deploying elsewhere
 
