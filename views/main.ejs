@@ -6,36 +6,35 @@
         <p>Loading...</p>
     </div></div>
 <% } %>
-    
+<% include help %>
 <div id="container">
     <% include headerbar %>
     <div id="switch-view">
-        <div id="view-compose" class="btn selected">Compose</div>
-        <div id="view-list" class="btn">Scheduled</div>
+        <a href="#compose"><div id="view-compose" class="btn selected tooltip" title="Changes will be preserved when switching views, double click to clear form.">Compose</div></a>
+        <a href="#list"><div id="view-list" class="btn tooltip" title="View scheduled messages, click again to reload.">Scheduled</div></a>
     </div>
     <form id="compose">
         <label for="subject">Subject:</label> 
-        <input id="subject" name="subject" type="text" />
+        <input id="subject" name="subject" type="text"/>
         <label for="to">To:</label>
-        <input id="to" name="to" type="text" title="please separate with spaces" /><%/* TODO make nicer */%>
+        <input id="to" name="to" type="text" class="tooltip" title="Separate addresses with commas" />
         <label for="from">From:</label>
         <input id="from" name="from" />
         <textarea id="body" name="body"></textarea>
-        <%/*todo schedule gui needs help /this whole form needs help */%>
-        
-        <input id="time" name="time" type="datetime" style="display:none;"/><%/* TODO make a lot nicer */%>
+        <input id="time" name="time" type="datetime" style="display:none;"/>
         <label for="datetimepick">Time to Send:</label>
-        <input id="datetimepick" name="datetimepick" type="text"/>
+        <input id="datetimepick" name="datetimepick" type="text" class="tooltip" title="Leave blank to Send Now"/>
         <input id="id" name="id" type="hidden" value="" />
         <input type="submit" id="schedule" class="btn right" value="Submit" />
     </form>
     <div id="list" style="display:none;">
-        <img class="image128" src="/sendmail-loading-128-opt.gif" alt="loading" />
-        <span id="list-loading-text">Loading...</span>
+        <div id="list-loading">
+            <div>Loading...</div>
+            <img class="image128" src="/sendmail-loading-128-opt.gif" alt="loading" />
+        </div>
     </div>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 <script src="/jquery.datetimepicker.js"></script>
 <script src="/lodash.custom.min.js"></script>
 <script src="/ejs.min.js"></script>
