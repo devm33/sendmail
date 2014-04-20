@@ -5,46 +5,13 @@ SendMail is intended for individuals trying automate their email usage we seek t
 
 View live here: [sendmail4911.herokuapp.com](https://sendmail4911.herokuapp.com/)
 
-Setup
------
-High level dependencies:
-- [Node.js](http://nodejs.org/download/)
-- [Redis](http://redis.io/download)
+* [User Manual](#user-manual)
+* [Setup Your Own](#setup)
+* [Contributing](#contributing)
+* [API](#api)
+* [License](#license)
 
-If you would like to launch your own instance on Heroku simply clone this repo, add a secrets.json file with your Google app ID and secret ([see how to get these](https://developers.google.com/accounts/docs/OAuth2Login#getcredentials)), and then push it to a new Heroku project that has a Redis add-ons enabled -- it's that easy!
-
-To run locally (by which I mean anywhere except Heroku) you'll need [node](http://nodejs.org/download/) (and 
-[npm](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager)) available, and then in this repo run:
-
-    $ npm install
-to install the node.js dependencies for the app.
-
-Once you've got the dependencies set up (including redis) you can run these shortcut scripts:
-    
-    $ ./up_local.sh
-    $ ./down_local.sh
-    $ ./reup_local.sh
-    
-Their names should be pretty self-explanatory, but so far they're only wrapping
-up two or so lines of code, so you could just check out the source.
-
-In order to run these in a *sh terminal environment, you'll probably want to
-change the permissions by running something like:
-
-    $ chmod a+x *_local.sh
-
-If you want to make styles changes you need [compass](http://compass-style.org/) (a CSS pre-processor built on top of [sass](http://sass-lang.com/)), [install here](http://compass-style.org/install/)
-
-If you'd like to send us a pull request please run the quick validator and formatting script:
-
-    $ ./pre_merge.sh
-
-Note: this requires [jshint](http://jshint.com/install/) (available through npm).
-    
-Thanks and enjoy!
-
-User Manual
------------
+## User Manual
 Navigate to https://sendmail4911.herokuapp.com to see a live version of SendMail.
 Once there, you will be presented with two options:
 
@@ -64,3 +31,59 @@ Chrome Extension:
 * Once in GMail, the extension offers two main functionalities:
     * The ability to schedule a message to be sent at a later time is accessible via GMail's standard "Compose" screen. A new option "Send Later" should be presented along the botton of the screen. Clicking this will prompt you to select a time to send the message.
     * The ability to set a reminder on a message is accessible whenever you are viewing a message in your mailbox. Along the top of the message, you will be presented with a new option to "Remind Me Later". Clicking this will prompt you to select a time to be reminded. At that time, the message will be marked as UNREAD and be moved to your INBOX (if not there already).
+
+## Setup
+
+#### 3-step guide to launching your own Heroku instance
+
+1. On Heroku, [create an account](https://signup.heroku.com/signup/dc), [create a new app](https://dashboard.heroku.com/apps), and choose a redis add-on (I used [RedisToGo](https://addons.heroku.com/redistogo).
+2. Clone this repo and [add your Heroku project as a remote](https://devcenter.heroku.com/articles/git#creating-a-heroku-remote)
+3. [Get a Google app ID and secret](https://developers.google.com/accounts/docs/OAuth2Login#getcredentials) and save it in a file called `secrets.json` in your repo, formatted as such:
+```json
+{
+    "web": {
+        "client_id": "your-client-id",
+        "client_secret": "your-client-secret"
+    },
+    "cookie_pass": "optional-but-highly-recommended"
+}
+```
+(Pro-Tip: you can download a json file from the [Google developer console](https://console.developers.google.com/) after you get your client id which matches these criteria, plus a bunch of other stuff that's fine to have in there).
+
+Now you're good to go: deploy by pushing your changes to your heroku repo and enjoy your own email helper website!
+
+#### Deploying elsewhere
+
+High level dependencies:
+- [Node.js](http://nodejs.org/download/)
+- [Redis](http://redis.io/download)
+
+To run locally (by which I mean anywhere except Heroku) you'll need [node](http://nodejs.org/download/) (and 
+[npm](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager)) available, and then in this repo run:
+
+    $ npm install
+to install the node.js dependencies for the app.
+
+Once you've got the dependencies set up (including redis) you can run these shortcut scripts:
+    
+    $ bash up_local.sh
+    $ bash down_local.sh
+    $ bash reup_local.sh
+    
+Their names should be pretty self-explanatory, but so far they're only wrapping up two or so lines of code, so you should just read them and see that they can definitely be ported to whatever environment you may be deploying to.
+
+## Contributing
+
+We're happy to take issues or pull requests! We will ask you to run this script on code to be merged:
+
+    $ bash pre_merge.sh
+
+which requires [jshint](http://jshint.com/install/) (available through npm).
+
+If you want to make styles changes you'll need [compass](http://compass-style.org/) (a CSS pre-processor built on top of [sass](http://sass-lang.com/)), [install here](http://compass-style.org/install/)
+
+Thanks!
+
+## License
+Copyright (c) 2014 Devraj Mehta, David Kearns, David Lee.
+Licensed under the MIT license.
