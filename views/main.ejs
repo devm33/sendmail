@@ -14,12 +14,24 @@
         <a href="#list"><div id="view-list" class="btn tooltip" title="View scheduled messages, click again to reload.">Scheduled</div></a>
     </div>
     <form id="compose">
-        <label for="subject">Subject:</label> 
-        <input id="subject" name="subject" type="text"/>
-        <label for="to">To:</label>
-        <input id="to" name="to" type="text" class="tooltip" title="Separate addresses with commas" />
-        <label for="from">From:</label>
-        <input id="from" name="from" />
+        <div>
+            <label for="to">To:</label>
+            <span class="input-wrap">
+                <input id="to" name="to" type="email" multiple required class="tooltip" title="Separate addresses with commas" />
+            </span>
+        </div>
+        <div>
+            <label for="from">From:</label>
+            <span class="input-wrap">
+                <input id="from" name="from" type=text" readonly />
+            </span>
+        </div>
+        <div>
+            <label for="subject">Subject:</label>
+            <span class="input-wrap">
+                <input id="subject" name="subject" type="text" />
+            </span>
+        </div>       
         <textarea id="body" name="body"></textarea>
         <input id="time" name="time" type="datetime" style="display:none;"/>
         <label for="datetimepick">Time to Send:</label>
