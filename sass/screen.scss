@@ -165,7 +165,6 @@ body {
             margin-right: 0.5em;
         }
         #header-bar {
-            overflow: auto;
             .right *, .left *, .wrap {
                 display:inline-block;
                 vertical-align: middle;
@@ -192,17 +191,28 @@ body {
         }
     }
     #compose {
+        span.input-wrap {
+            display: block;
+            overflow: hidden;
+        }
         input, textarea {
             display: block;
             margin-bottom: 1em;
         }
-        textarea {
+        span.input-wrap input, textarea {
             width: 100%;
+            @include box-sizing(border-box);
+        }
+        textarea {
             height: 300px;
         }
         label {
             float: left;
             margin-right: 0.5em;
+        }
+        #from {
+            border: 0;
+            outline: 0;
         }
     }
     ul.list{
