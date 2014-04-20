@@ -5,5 +5,6 @@ var config = {
     "url":"https://sendmail4911.herokuapp.com",*/
     "extensionauth": "/extensionauth",
     "schedule": "/schedule",
-    "remind": "/remind"
+    "remind": "/remind",
+    "maillist": "/#list"
 };

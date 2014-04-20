@@ -2,6 +2,8 @@
 @import "compass/utilities";
 @import "compass/css3";
 @import "compass/css3/user-interface";
+@import "compass/css3/transform";
+@import "compass/layout/stretching";
 
 body {
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
@@ -24,18 +26,18 @@ body {
             padding: 5px;
             background-color: #fff;
             @include border-radius(10px);
-            img.image128 {
-                display: block;
-                width: 128px;
-                height: 128px;
-                margin: 0 auto;
-            }
             p {
                 font-size: 1.5em;
                 font-style: italic;
                 text-align: center;
             }
         }
+    }
+    img.image128 {
+        display: block;
+        width: 128px;
+        height: 128px;
+        margin: 0 auto;
     }
     #container {
         
@@ -69,15 +71,72 @@ body {
             @include inline-block;
             margin-bottom: 1em;
 
-            /* currently using this for compose/view switch */
-            &.selected {
-                background-color: #ccc;
-            }
-            &.delete {
+            &.delete { /* TODO fix for IE */
                 background-color: #d23;
             }
         }
-        
+        #list {
+            li.mail {
+                .label {
+                    font-size: 0.7em;
+                    font-weight: 800;
+                    padding: 1px;
+                }
+                .content, .summary {
+                    cursor: pointer;
+                    margin-bottom: 1em;
+                    @include box-shadow(rgba(black, 0.1) 0 1px 0);
+                    &:hover {
+                        @include box-shadow(rgba(black, 0.2) 0 -2px 0 inset);
+                        background-color: #eee;
+                    }
+                    &:active {
+                        @include box-shadow(rgba(black, 0.2) 0 2px 0 inset);
+                    }
+                    @include user-select(none);
+                }
+                .content {
+                    display: block;
+                    background-color: #eee;
+                }
+                .summary {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    width: 69%; /* TODO not responsive */
+                    height: 31px;
+                    line-height: 31px;
+                    @include inline-block;
+                    div {
+                        @include inline-block;
+                    }
+                }
+            }
+            li.collapsed .content {
+                display: none;
+            }
+        }
+        #switch-view {
+            margin: auto;
+            width: 211px; /* TODO fix hard-coding (is b/c of padding) */
+            .btn {
+                &.selected {
+                    background-color: #ccc;
+                    &#view-compose:hover, &#view-compose:active {
+                        /* want no change on hover here */
+                        @include box-shadow(rgba(black, 0.1) 0 1px 0);
+                        background-color: #ccc;
+                    }
+                }
+            }
+            #view-compose {
+                @include border-right-radius(0px);
+                margin-right: -4px; /* TODO not the best way to do this, but
+                having a hard time tracking down the source of spacing... */
+            }
+            #view-list {
+                @include border-left-radius(0px);
+            }
+        }
         #signinButton {
             background-color: #dd4b39;
             &:hover {
@@ -119,8 +178,9 @@ body {
     a.github-fork {
         position: absolute;
         top: 0;
-        right: 0;
+        left: 0;
         border: 0;
+        @include rotate(-90deg);
     }
     #error-bar {
         width: 100%;
@@ -144,6 +204,21 @@ body {
             float: left;
             margin-right: 0.5em;
         }
+    }
+    ul.list{
+        list-style-type: disc; 
+        list-style-position: inside; 
+    }
+    ol.list{
+        list-style-type: decimal; 
+        list-style-position: inside; 
+    }
+    #Help{
+        padding: 5px 5px 0 0;
+        cursor: pointer;
+    }
+    .ui-tooltip{
+        max-width: 400px;
     }
 }
 
