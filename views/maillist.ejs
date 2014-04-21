@@ -1,7 +1,7 @@
 <%
 function dateFormat(date_string) {
     var d = new Date(date_string);
-    var r = d.getMonth()+'/'+d.getDate()+' '+d.toLocaleTimeString().slice(0,-6);
+    var r = (d.getMonth()+1)+'/'+d.getDate()+' '+d.toLocaleTimeString().slice(0,-6);
     if(d.toLocaleTimeString().slice(-2) == 'PM') {
         r += 'p';
     }
