@@ -1,4 +1,4 @@
-/* 
+/*
  Main server file for sendmail app
 */
 
@@ -13,7 +13,6 @@ if(s.testing) {
 
 /*** Required modules */
 var express = require('express');
-var request = require('request');
 var node_redis = require('redis');
 var RedisStore = require('connect-redis')(express);
 var url = require('url');
@@ -25,7 +24,7 @@ if(process.env.REDISTOGO_URL){
 }
 s.redis = node_redis.createClient(s.db_url.port, s.db_url.hostname);
 if(s.db_url.auth) {
-    s.db_pass = s.db_url.auth.split(":")[1];
+    s.db_pass = s.db_url.auth.split(':')[1];
     s.db_auth = function(){ s.redis.auth(s.db_pass); };
     s.redis.addListener('connected', s.db_auth);
     s.redis.addListener('reconnected', s.db_auth);
@@ -37,7 +36,6 @@ var secrets = require('./secrets.json');   /* keys, codes, etc. */
 var auth    = require('./lib/auth.js')(s); /* lib for auth routes */
 var user    = require('./lib/user.js')(s); /* user routes, api calls */
 var mail    = require('./lib/mail.js')(s); /* mail handling methods */
-var error   = require('./lib/error.js');   /* error handling methods */
 
 /*** Configure express application */
 var app = express();
@@ -57,7 +55,7 @@ app.use('/views', express.static(__dirname + '/views'));
 
 // middleware for post data processing
 app.use(express.json());
-app.use(express.urlencoded()); 
+app.use(express.urlencoded());
 
 // cookie processing for session
 app.use(express.cookieParser(secrets.cookie_pass || 'dumb pass'));
@@ -72,7 +70,7 @@ app.get('/', function(req, res){
     var template = 'landing';
     var opts = {'gauth_url': auth.gauth_url};
     if(req.session.error) {
-        opts.err = "There was an error logging in";
+        opts.err = 'There was an error logging in';
     } else if(req.session.authenticated) {
         template = 'main';
         opts = {'loading': req.session.loading};

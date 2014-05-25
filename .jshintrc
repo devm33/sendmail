@@ -1,0 +1,15 @@
+{
+    // Globals
+    "undef":        true,
+    "node":         true,
+    // Whitespace
+    "white":        true,
+    "trailing":     true,
+    "indent":       4,
+    // Other Styles
+    //"eqeqeq":       true, // ===
+    "quotmark":     true, // consistency, could specify single or double
+    "curly":        true, // requires {} always
+    "unused":       true, // warn about unused vars
+    "white":        true  // the crockford rule
+}

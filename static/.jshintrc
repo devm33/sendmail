@@ -1,0 +1,6 @@
+{
+    // different settings for in-browser js
+    "browser":      true,
+    "jquery":       true,
+    "node":         false
+}
