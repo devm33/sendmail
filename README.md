@@ -1,8 +1,12 @@
 # SendMail
 
-SendMail is intended for individuals trying automate their email usage we seek to provide a solution for scheduling message sending. Being able to precisely schedule email sending allows users to optimize timing for important messages, to effortlessly send out emails at pre-designated times, and to even send themselves reminders (such as re-sending themselves an email to review at a later time).
+SendMail is a web app that hooks into GMail's API to add scheduled sending of emails.
 
-View live here: [sendmail4911.herokuapp.com](https://sendmail4911.herokuapp.com/), and get [chrome extension here.](https://chrome.google.com/webstore/detail/sendmail/dnljffkjlnkgabakkicokgdfbbkegglf)
+There's a [chrome extension here](https://chrome.google.com/webstore/detail/sendmail/dnljffkjlnkgabakkicokgdfbbkegglf) that inject's the added functionality right into GMail.
+
+It can also be accessed and managed from the website: [sendmail4911.herokuapp.com](https://sendmail4911.herokuapp.com/) (either through a browser or our [API](#api).)
+
+Finally, this project was built with cloning in mind, so we've tried to make that as easy as possible see: [setup](#setup). Please let us know if you see a way it could be made easier.
 
 #### Table of Contents
 
@@ -21,8 +25,8 @@ Once there, you will be presented with two options:
 
 Website:
 * "Sign in with Google" will take you to the main page of the website.
-* After you sign in, you will be presented with a standard form in which you can compose an email message to be sent at a later time. 
-* At the top of the page, you will also see a toggle button to change between the "Compose" screen and "Scheduled" screen. 
+* After you sign in, you will be presented with a standard form in which you can compose an email message to be sent at a later time.
+* At the top of the page, you will also see a toggle button to change between the "Compose" screen and "Scheduled" screen.
 * The "Scheduled" screen presents you with a list of all scheduled events.
 * You can click "edit" or "delete" to change any scheduled items.
 
@@ -34,7 +38,7 @@ Chrome Extension:
     * The ability to set a reminder on a message is accessible whenever you are viewing a message in your mailbox. Along the top of the message, you will be presented with a new option to "Remind Me Later". Clicking this will prompt you to select a time to be reminded. At that time, the message will be marked as UNREAD and be moved to your INBOX (if not there already).
 
 ## API
-######Disclaimer: this is only "RESTish" currently, but rest assured that we are working on making it fully RESTful.
+**Disclaimer:** this is only "RESTish" currently, but rest assured that we are working on making it fully RESTful.
 
 ###/oauth2callback
 GET to initiate an authenticated session. This is our callback route for Google's OAuth. Of course this can be passed along to us by anyroute so long as it is valid. See here for more details: https://developers.google.com/accounts/docs/OAuth2Login
@@ -56,7 +60,7 @@ POST an email object to this endpoint to have it saved and scheduled to be sent 
 - `key` is an optional field, only neccesary if sending without an authenticated session, for example from a trusted third party application.
 
 ###/remind
-POST a reminder object to this endpoint and it will saved under your user and scheduled to be moved around your inbox. 
+POST a reminder object to this endpoint and it will saved under your user and scheduled to be moved around your inbox.
 ```js
 {
    gmid: "4568642db3456765",
@@ -66,7 +70,7 @@ POST a reminder object to this endpoint and it will saved under your user and sc
    key: "user-key"
 }
 ```
-- All fields, except `key`, should be considered required. 
+- All fields, except `key`, should be considered required.
 - Same note for `time` as in `/schedule` applies.
 
 ###/mailforuser
@@ -115,32 +119,62 @@ GET to destroy any authenticated session associated with the access.
 #### Deploying elsewhere
 
 High level dependencies:
-- [Node.js](http://nodejs.org/download/)
+
+- [Node.js](http://nodejs.org/download/) and [npm](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager)
 - [Redis](http://redis.io/download)
 
-To run locally (by which I mean anywhere except Heroku) you'll need [node](http://nodejs.org/download/) (and 
-[npm](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager)) available, and then in this repo run:
+Once `node` and `npm` are available the nodejs dependencies can be installed by running following command in the repo directory.
 
+    $ npm install --production
+
+Once you've got the dependencies set up (including redis) use `make` to control the app:
+
+    $ make up
+    $ make down
+
+where `up` will start the application and `down` will shut it down.
+
+Also, running `make` with no parameters or `make help` will print a help text.
+
+#### Developing locally
+
+To setup a development instance drop the production flag from npm install to include the dev dependencies.
+
+Also one of dev dependencies, [gulp-compass](https://www.npmjs.org/package/gulp-compass), depends on [compass](http://compass-style.org/) which can be installed using `gem`
+
+    $ gem install compass
     $ npm install
-to install the node.js dependencies for the app.
 
-Once you've got the dependencies set up (including redis) you can run these shortcut scripts:
-    
-    $ bash up_local.sh
-    $ bash down_local.sh
-    $ bash reup_local.sh
-    
-Their names should be pretty self-explanatory, but so far they're only wrapping up two or so lines of code, so you should just read them and see that they can definitely be ported to whatever environment you may be deploying to.
+You can now use the following additional make commands
+
+- `build` to compile the scss to css and lint the js files with jshint
+
+#### On Windows
+_Don't ask me why I did this._
+
+If you're looking to set up on Windows there are some special considerations to take into account:
+
+- The [default installer for node](http://nodejs.org/download/) should work to get you both node and npm, but I might recommend using the [manual install of node](https://github.com/joyent/node/wiki/Building-and-installing-Node.js#manual-install-1) for the same reasons they do:
+    > Installing Node manually is recommended as a workaround for any problems with automatic install. You also have much better understanding of the things that happen if you do those things yourself.
+
+    - Basically, you have to download the exe's for node and npm, put them in a folder, and that folder to your system path
+    - [node.exe](http://nodejs.org/dist/latest/node.exe) or [x64/node.exe](http://nodejs.org/dist/latest/x64/node.exe) and zip containing npm available [here](http://nodejs.org/dist/npm/) (grab the latest)
+- Install redis was less straightforward. The way I chose to do it was using [Microsoft Open Tech's port](https://github.com/MSOpenTech/redis) though there seem to be several other ports available.
+    - Clone their repo <https://github.com/MSOpenTech/redis.git>
+    - You can either unzip their exe's from `bin/release/` or use Visual Studio to build your own using the solution file in `msvs/RedisServer.sln`
+    - Add the path to the folder containing your chosen exe's to your system path.
+- Finally, GNU make will be handy to run the control commands (though not neccessary as you could take them out of the Makefile and run them another way).
+    Personally, I use [Cygwin](https://cygwin.com/install.html) to accomplish this (and many other things on Windows), but [SO indicates](http://stackoverflow.com/questions/12881854/how-to-use-gnu-make-on-windows) you could get away with simply using [MinGW](http://www.mingw.org/).
+- Now you can refer to [Deploying elsewhere](#deploying-elsewhere) with the high-level dependencies resolved.
+
+If you're planning on developing on Windows you'll also need ruby to compile the compass scss files.
+
+- The defacto method of getting ruby on Windows seems to be [RubyInstaller](http://rubyinstaller.org/downloads/) which worked great for me.
+- With ruby is installed (and subsequently gem) you can refer to [Developing locally](#developing-locally).
 
 ## Contributing
 
-We're happy to take issues or pull requests! We will ask you to run this script on code to be merged:
-
-    $ bash pre_merge.sh
-
-which requires [jshint](http://jshint.com/install/) (available through npm).
-
-If you want to make styles changes you'll need [compass](http://compass-style.org/) (a CSS pre-processor built on top of [sass](http://sass-lang.com/)), [install here](http://compass-style.org/install/)
+We're happy to take issues or pull requests!
 
 Thanks!
 
