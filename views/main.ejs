@@ -2,7 +2,7 @@
 
 <% if (locals.loading) { %>
     <div class="lightbox"><div class="content">
-        <img class="image128" src="/sendmail-loading-128-opt.gif" alt="loading" />
+        <img class="image128" src="/img/sendmail-loading-128-opt.gif" alt="loading" />
         <p>Loading...</p>
     </div></div>
 <% } %>
@@ -31,7 +31,7 @@
             <span class="input-wrap">
                 <input id="subject" name="subject" type="text" />
             </span>
-        </div>       
+        </div>
         <textarea id="body" name="body"></textarea>
         <input id="time" name="time" type="datetime" style="display:none;"/>
         <label for="datetimepick">Time to Send:</label>
@@ -42,13 +42,13 @@
     <div id="list" style="display:none;">
         <div id="list-loading">
             <div>Loading...</div>
-            <img class="image128" src="/sendmail-loading-128-opt.gif" alt="loading" />
+            <img class="image128" src="/img/sendmail-loading-128-opt.gif" alt="loading" />
         </div>
     </div>
 </div>
 
-<script src="/jquery.datetimepicker.js"></script>
-<script src="/lodash.custom.min.js"></script>
-<script src="/ejs.min.js"></script>
-<script src="/main.js"></script> <%/* TODO min & concat js for prod */%>
+<script src="/lib/jquery.datetimepicker.js"></script>
+<script src="/lib/lodash.custom.min.js"></script>
+<script src="/lib/ejs.min.js"></script>
+<script src="/js/main.js"></script> <%/* TODO min & concat js for prod */%>
 <% include foot %>

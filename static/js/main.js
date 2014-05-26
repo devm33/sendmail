@@ -88,7 +88,7 @@ var initDateTimePicker = function($picker){
             datepickerLogic(currentDateTime, this);
         }
     });
- 
+
 };
 
 var populateEmailForm = function(obj) {
@@ -189,7 +189,7 @@ var showSuccessBar = function(msg, wait) {
 
 var showLoadBox = function(msg) {
     var box = $('<div class="lightbox"><div class="content">'+
-        '<img class="image128" src="/sendmail-loading-128-opt.gif" alt="loading" />'+
+        '<img class="image128" src="/img/sendmail-loading-128-opt.gif" alt="loading" />'+
         '<p>'+(msg || 'Loading...')+'</p>'+
     '</div></div>'); /* TODO this should be a template */
     box.appendTo('body');
@@ -313,7 +313,7 @@ var hashChange = function(e) {
     if(window.location.hash == '#compose' || !window.location.hash) { /* currently compose default */
         showCompose();
     }
-    else {  
+    else {
         showList();
     }
 };
@@ -351,7 +351,7 @@ $(document).ready(function(){
 
     /* Call hash change on load to ensure correct view loaded if hash */
     hashChange();
-    
+
     /* Callback for profile data, will pull until it gets it */
     loadProfile();
     /* TODO load profile conditionally, get stuff passed in from node */

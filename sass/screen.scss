@@ -6,7 +6,7 @@
 @import "compass/layout/stretching";
 
 body {
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: 300;
     font-size: 12pt;
     line-height: 15pt;
@@ -40,10 +40,10 @@ body {
         margin: 0 auto;
     }
     #container {
-        
+
         max-width: 500px;
         margin: 2em auto;
-        
+
         .btn {
             cursor: pointer;
             @include user-select(none);
@@ -158,7 +158,7 @@ body {
         #header-icon {
             width: 64px;
             height: 64px;
-            background: no-repeat url(/sendmail-64.png);
+            background: no-repeat url(/img/sendmail-64.png);
         }
         img.face-circle {
             @include border-radius(50%);
@@ -179,7 +179,6 @@ body {
         top: 0;
         left: 0;
         border: 0;
-        @include rotate(-90deg);
     }
     #error-bar {
         width: 100%;
@@ -216,12 +215,12 @@ body {
         }
     }
     ul.list{
-        list-style-type: disc; 
-        list-style-position: inside; 
+        list-style-type: disc;
+        list-style-position: inside;
     }
     ol.list{
-        list-style-type: decimal; 
-        list-style-position: inside; 
+        list-style-type: decimal;
+        list-style-position: inside;
     }
     #Help{
         padding: 5px 5px 0 0;
