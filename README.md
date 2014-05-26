@@ -127,12 +127,25 @@ Once `node` and `npm` are available the nodejs dependencies can be installed by 
 
     $ npm install --production
 
-Once you've got the dependencies set up (including redis) use `make` to control the app:
+Once you've got the dependencies set up (including redis) use `make` with the following commands to control the app:
+
+make command | effect
+-------------|--------------
+`up`         | start the app
+`down`       | stop the app
+`reup`       | stop and start the app
+`redis`      | restart just redis
+`up_redis`   | start the app
+`down_redis` | stop the app
+`node`       | restart just node
+`up_node`    | start just node
+`down_node`  | stop just node
+
+For example running:
 
     $ make up
-    $ make down
 
-where `up` will start the application and `down` will shut it down.
+will start the application.
 
 Also, running `make` with no parameters or `make help` will print a help text.
 
@@ -145,9 +158,16 @@ Also one of dev dependencies, [gulp-compass](https://www.npmjs.org/package/gulp-
     $ gem install compass
     $ npm install
 
-You can now use the following additional make commands
+You can now use the following additional make commands:
 
-- `build` to compile the scss to css and lint the js files with jshint
+make command | effect
+-------------|--------------
+`build`      | compile scss and lint js
+`watch`      | compile scss and js on change
+`dev`        | start redis, node, and watch
+`redev`      | restart node and watching
+
+*Note:* all commands that stop node will also stop the watch process since node runs it. Thus there is no need for a `downdev` command since `down` will shut everything down.
 
 #### On Windows
 _Don't ask me why I did this._
