@@ -6,49 +6,25 @@
         <p>Loading...</p>
     </div></div>
 <% } %>
+
 <% include help %>
-<div id="container">
+
+<div id="container" ng-app="sendmailApp">
+    <div message-bar></div>
+
     <% include headerbar %>
+
     <div id="switch-view">
-        <a href="#compose"><div id="view-compose" class="btn selected tooltip" title="Changes will be preserved when switching views, double click to clear form.">Compose</div></a>
-        <a href="#list"><div id="view-list" class="btn tooltip" title="View scheduled messages, click again to reload.">Scheduled</div></a>
+        <a href="#/compose"><div id="view-compose" class="btn selected tooltip" title="Changes will be preserved when switching views.">Compose</div></a>
+        <a href="#/list"><div id="view-list" class="btn tooltip" title="View scheduled messages.">Scheduled</div></a>
     </div>
-    <form id="compose">
-        <div>
-            <label for="to">To:</label>
-            <span class="input-wrap">
-                <input id="to" name="to" type="email" multiple required class="tooltip" title="Separate addresses with commas" />
-            </span>
-        </div>
-        <div>
-            <label for="from">From:</label>
-            <span class="input-wrap">
-                <input id="from" name="from" type=text" readonly />
-            </span>
-        </div>
-        <div>
-            <label for="subject">Subject:</label>
-            <span class="input-wrap">
-                <input id="subject" name="subject" type="text" />
-            </span>
-        </div>
-        <textarea id="body" name="body"></textarea>
-        <input id="time" name="time" type="datetime" style="display:none;"/>
-        <label for="datetimepick">Time to Send:</label>
-        <input id="datetimepick" name="datetimepick" type="text" class="tooltip" title="Leave blank to Send Now"/>
-        <input id="id" name="id" type="hidden" value="" />
-        <input type="submit" id="schedule" class="btn right" value="Submit" />
-    </form>
-    <div id="list" style="display:none;">
-        <div id="list-loading">
-            <div>Loading...</div>
-            <img class="image128" src="/img/sendmail-loading-128-opt.gif" alt="loading" />
-        </div>
-    </div>
+
+    <div ng-view></div>
 </div>
 
 <script src="/lib/jquery.datetimepicker.js"></script>
 <script src="/lib/lodash.custom.min.js"></script>
 <script src="/lib/ejs.min.js"></script>
 <script src="/js/main.js"></script> <%/* TODO min & concat js for prod */%>
+
 <% include foot %>
