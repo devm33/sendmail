@@ -1,0 +1,26 @@
+<form id="compose" ng-controller="ComposeCtrl">
+    <div>
+        <label for="to">To:</label>
+        <span class="input-wrap">
+            <input id="to" name="to" ng-model="mail.to" type="email" multiple required class="tooltip" title="Separate addresses with commas" />
+        </span>
+    </div>
+    <div>
+        <label for="from">From:</label>
+        <span class="input-wrap">
+            <input id="from" name="from" type="text" readonly value={{mail.from}} />
+        </span>
+    </div>
+    <div>
+        <label for="subject">Subject:</label>
+        <span class="input-wrap">
+            <input id="subject" name="subject" ng-model="mail.subject" type="text" />
+        </span>
+    </div>
+    <textarea id="body" name="body" ng-model="mail.body"></textarea>
+    <input id="time" name="time" type="datetime" ng-model="mail.time" style="display:none;"/>
+    <label for="datetimepick">Time to Send:</label>
+    <input id="datetimepick" name="datetimepick" type="text" class="tooltip" title="Leave blank to Send Now"/>
+    <input id="id" name="id" type="hidden" ng-model="mail.id" />
+    <input type="submit" id="schedule" class="btn right" value="Submit" />
+</form>
